@@ -19,7 +19,7 @@
 - **Styling**: Tailwind CSS, ShadCN
 - **Deployment**: Vercel  
 
-### Backend (Spring Boot Microservices)
+### Backend (Java Spring Boot Microservices)
 - `api-gateway`: Routes and exposes backend endpoints  
 - `llm-service`: Integrates **Gemini 2.5** via **Spring AI**  
 - `spotify-service`: Handles Spotify API operations  
