@@ -1,0 +1,5 @@
+eureka - 8761
+llm-service - 8090
+spotify-service - 8075
+api-gateway - 8080
+

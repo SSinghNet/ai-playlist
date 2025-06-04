@@ -1,0 +1,33 @@
+services:
+  service-registry:
+    image: ssinghnet/ai-playlist-service-registry
+    ports:
+      - "8761:8761"
+    networks:
+      - backend
+  llm-service:
+    image: ssinghnet/ai-playlist-llm-service
+    ports:
+      - "8090:8090"
+    networks:
+      - backend
+    depends_on:
+      - service-registry
+  spotify-service:
+    image: ssinghnet/ai-playlist-spotify-service
+    ports:
+      - "8075:8075"
+    networks:
+      - backend
+    depends_on:
+      - service-registry
+  api-gateway:
+    image: ssinghnet/ai-playlist-api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - service-registry
+networks:
+  backend:
