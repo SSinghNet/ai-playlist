@@ -4,6 +4,7 @@ import React from "react";
 import AuthProvider from "@/components/auth-provider";
 
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
     subsets: ['latin'],
@@ -20,6 +21,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
                 enableSystem
                 disableTransitionOnChange
             >
+                <Analytics/>
                 <AuthProvider>
                     {children}
                 </AuthProvider>
