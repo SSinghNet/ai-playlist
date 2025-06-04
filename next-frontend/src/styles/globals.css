@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
-    font-family: Inter, serif;
+    /*font-family: Inter, serif;*/
 }
 
 @theme inline {
