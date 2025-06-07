@@ -61,7 +61,9 @@ export default function PlaylistCard({playlist} : {playlist: Playlist}){
                     </Button> : <pre className={"text-sm"}>*Sign in with Spotify to export your playlist*</pre>
             }
             <div className={"m-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2"}>
-                {playlist.tracks?.map(track => (<TrackCard track={track} key={track.uri}/>))}
+                {playlist.tracks?.map(track => (
+                    track.name ? <TrackCard track={track} key={track.uri}/> : null
+                ))}
             </div>
         </div>
     );
