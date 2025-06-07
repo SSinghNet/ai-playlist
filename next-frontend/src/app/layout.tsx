@@ -14,6 +14,9 @@ const inter = Inter({
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <title>SSingh.Net AI Playlist Generator</title>
+            </head>
             <body className={inter.className}>
             <ThemeProvider
                 attribute="class"
