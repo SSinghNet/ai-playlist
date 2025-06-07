@@ -5,6 +5,7 @@ import AuthProvider from "@/components/auth-provider";
 
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
+import {GoogleAdsense} from "@/components/google-adsense";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
                 </AuthProvider>
             </ThemeProvider>
             </body>
+            <GoogleAdsense />
         </html>
     );
 }
