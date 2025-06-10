@@ -6,6 +6,7 @@ import AuthProvider from "@/components/auth-provider";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 import {GoogleAdsense} from "@/components/google-adsense";
+import Script from "next/script";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -17,6 +18,11 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <html lang="en" suppressHydrationWarning>
             <head>
                 <title>SSingh.Net AI Playlist Generator</title>
+                <script
+                    async
+                    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${process.env.NEXT_PUBLIC_ADSENSE_PUB_ID}`}
+                    crossOrigin="anonymous"
+                ></script>
             </head>
             <body className={inter.className}>
             <ThemeProvider
@@ -31,7 +37,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
                 </AuthProvider>
             </ThemeProvider>
             </body>
-            <GoogleAdsense />
+            {/*<GoogleAdsense />*/}
         </html>
     );
 }
