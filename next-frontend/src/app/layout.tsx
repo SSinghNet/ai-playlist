@@ -5,8 +5,6 @@ import AuthProvider from "@/components/auth-provider";
 
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
-import {GoogleAdsense} from "@/components/google-adsense";
-import Script from "next/script";
 
 const inter = Inter({
     subsets: ['latin'],
