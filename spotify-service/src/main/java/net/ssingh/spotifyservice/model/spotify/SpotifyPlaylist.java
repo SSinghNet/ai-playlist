@@ -1,15 +1,18 @@
 package net.ssingh.spotifyservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class SpotifyPlaylist extends Playlist<SpotifyTrack> {
 
     private String spotifyId;
@@ -25,6 +28,16 @@ public class SpotifyPlaylist extends Playlist<SpotifyTrack> {
         }
 
         return uris;
+    }
+
+
+    public boolean containsTrack(SpotifyTrack track) {
+        for(SpotifyTrack t : this.getTracks()){
+            if(track.getUri().equals(t.getUri())){
+                return true;
+            }
+        }
+        return false;
     }
 
 
