@@ -22,8 +22,8 @@ export default function PlaylistGenerator() {
             toast.info("Prompt must be at least 3 characters and no more than 100 characters.");
             return;
         }
-        if(!playlistLength || playlistLength < 5 || playlistLength > 50) {
-            toast.info("Playlist length must be between 5 and 50.");
+        if(!playlistLength || playlistLength < 5 || playlistLength > 25) {
+            toast.info("Playlist length must be between 5 and 25.");
             return;
         }
         setIsLoading(true);
