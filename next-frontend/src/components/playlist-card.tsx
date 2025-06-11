@@ -6,8 +6,9 @@ import {SpotifySession} from "@/models/SpotifySession";
 import {toast} from "sonner";
 import {useState} from "react";
 import SpotifyLogoFull from "@/components/spotify-logo-full";
+import Link from "next/link";
 
-export default function PlaylistCard({playlist} : {playlist: Playlist}){
+export default function PlaylistCard({playlist}: { playlist: Playlist }) {
 
     const [isExported, setIsExported] = useState<boolean>(false);
 
@@ -31,13 +32,14 @@ export default function PlaylistCard({playlist} : {playlist: Playlist}){
                     playlist: playlist,
                     accessToken: accessToken
                 })
-            }).then((response) => {
+            }).then(async (response) => {
                 if (response.status !== 200) {
                     toast.error("An error occurred while exporting the playlist. Please try again.");
                     console.error(response);
                     return;
                 }
                 toast.success("Playlist exported successfully. You can check your account for the playlist.");
+                playlist.spotifyId = (await response.json()).spotifyId!
                 setIsExported(true);
             });
         } catch (err) {
@@ -50,7 +52,8 @@ export default function PlaylistCard({playlist} : {playlist: Playlist}){
         <div className="flex flex-col items-center gap-3 border-2 rounded-lg p-5">
             <span className={"text-3xl font-bold"}>{playlist.title}</span>
             <span className={"text-md"}>{playlist.description}</span>
-            { accessToken ?
+            <div className={"flex items-center gap-2"}>
+                {accessToken ?
                     <Button
                         onClick={exportPlaylist}
                         variant={"default"}
@@ -59,7 +62,23 @@ export default function PlaylistCard({playlist} : {playlist: Playlist}){
                     >
                         Export Playlist to <SpotifyLogoFull className={"w-18"}/>
                     </Button> : <pre className={"text-sm"}>*Sign in with Spotify to export your playlist*</pre>
-            }
+                }
+                {playlist.spotifyId ?
+                    <>
+                        <Link
+                            href={`https://open.spotify.com/playlist/${playlist.spotifyId}`}
+                            target={"_blank"}
+                        >
+                            <Button
+                                className={"bg-[#1ed760] hover:bg-[#5ef770] outline-black outline-4"}
+                            >
+                                View Exported Playlist On <SpotifyLogoFull className={"w-18"}/>
+                            </Button>
+                        </Link>
+                    </>
+                    : ""
+                }
+            </div>
             <div className={"m-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2"}>
                 {playlist.tracks?.map(track => (
                     track.name ? <TrackCard track={track} key={track.uri}/> : null
