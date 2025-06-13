@@ -1,9 +1,10 @@
-package net.ssingh.spotifyservice.model;
+package net.ssingh.spotifyservice.model.spotify;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.ssingh.spotifyservice.model.generic.Track;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,10 @@ import java.util.Map;
 @NoArgsConstructor
 public class SpotifyTrack extends Track<SpotifyArtist> {
     private String uri;
+    @JsonProperty("id")
     private String spotifyId;
 
+    @JsonProperty("duration_ms")
     private int durationMs;
 
     private String imageUrl;
@@ -42,7 +45,7 @@ public class SpotifyTrack extends Track<SpotifyArtist> {
         if (album != null) {
             List<Map<String, Object>> images = (List<Map<String, Object>>) album.get("images");
             if (images != null && !images.isEmpty()) {
-                this.imageUrl = (String) images.get(0).get("url");
+                createImage(images);
             }
         }
 
@@ -56,5 +59,18 @@ public class SpotifyTrack extends Track<SpotifyArtist> {
 
         this.artistIds = artistIds;
 
+    }
+
+    @JsonProperty("album")
+    public void createImageFromAlbum(Map<String, Object> album){
+        List<Map<String, Object>> images = (List<Map<String, Object>>) album.get("images");
+        if (images != null && !images.isEmpty()) {
+            createImage(images);
+        }
+    }
+
+    @JsonProperty("images")
+    public void createImage(List<Map<String, Object>> images) {
+        this.imageUrl = (String) images.get(0).get("url");
     }
 }

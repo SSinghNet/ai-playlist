@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.model;
+package net.ssingh.spotifyservice.model.spotify;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -9,14 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+public class SpotifyUser {
 
-public class SpotifyArtist extends Artist {
     @JsonProperty("id")
     private String spotifyId;
+
     @JsonProperty("uri")
     private String uri;
+
+    @JsonProperty("display_name")
+    private String displayName;
 
     private String imageUrl;
 
@@ -29,4 +33,5 @@ public class SpotifyArtist extends Artist {
             }
         }
     }
+
 }

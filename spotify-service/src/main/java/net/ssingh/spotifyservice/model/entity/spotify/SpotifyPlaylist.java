@@ -1,9 +1,10 @@
-package net.ssingh.spotifyservice.model;
+package net.ssingh.spotifyservice.model.spotify;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.ssingh.spotifyservice.model.generic.Playlist;
 
 import java.util.ArrayList;
 import java.util.List;
