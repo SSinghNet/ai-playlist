@@ -1,0 +1,6 @@
+On a scale of 1-3, where 1 is mainstream/broad and 3 is extremely niche, how niche is the following user prompt? Consider how rapidly the niche-ness increases as the category becomes more specific.
+
+user prompt: {{user_prompt}}
+
+Output ONLY the numerical niche rating as a decimal, for example, "2.3". Do NOT include any other text, explanation, or context.
+

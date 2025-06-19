@@ -1,0 +1,26 @@
+package net.ssingh.spotifyservice.model.entity.generic;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Track<T extends Artist> {
+
+    @JsonProperty("name")
+    private String name;
+    private ArrayList<T> artists;
+
+    public void addArtist(T artist) {
+        if (artists == null) {
+            artists = new ArrayList<T>();
+        }
+        artists.add(artist);
+    }
+
+}

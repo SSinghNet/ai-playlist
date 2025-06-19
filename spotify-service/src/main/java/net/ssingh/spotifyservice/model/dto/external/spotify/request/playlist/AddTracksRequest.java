@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.model.dto.external.spotify;
+package net.ssingh.spotifyservice.model.dto.external.spotify.request.playlist;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +10,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlaylistAddTracksRequestBody implements Serializable {
-
+public class AddTracksRequest implements Serializable {
     List<String> uris;
-
 }
