@@ -10,8 +10,8 @@ import net.ssingh.spotifyservice.model.dto.external.spotify.request.playlist.Add
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Playlist;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Track;
-import net.ssingh.spotifyservice.model.entity.spotify.SpotifyPlaylist;
-import net.ssingh.spotifyservice.model.entity.spotify.SpotifyTrack;
+import net.ssingh.spotifyservice.model.entity.SpotifyPlaylist;
+import net.ssingh.spotifyservice.model.entity.SpotifyTrack;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

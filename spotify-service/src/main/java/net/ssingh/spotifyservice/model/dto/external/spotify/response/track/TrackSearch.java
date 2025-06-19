@@ -2,7 +2,7 @@ package net.ssingh.spotifyservice.model.dto.external.spotify.response.track;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import net.ssingh.spotifyservice.model.entity.spotify.SpotifyTrack;
+import net.ssingh.spotifyservice.model.entity.SpotifyTrack;
 
 import java.util.List;
 @Getter

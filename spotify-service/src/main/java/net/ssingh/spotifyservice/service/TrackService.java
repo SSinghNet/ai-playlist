@@ -2,15 +2,13 @@ package net.ssingh.spotifyservice.service;
 
 import net.ssingh.spotifyservice.client.SpotifyApiClient;
 import net.ssingh.spotifyservice.model.dto.external.spotify.response.track.TrackSearch;
-import net.ssingh.spotifyservice.model.entity.spotify.SpotifyArtist;
-import net.ssingh.spotifyservice.model.entity.spotify.SpotifyTrack;
+import net.ssingh.spotifyservice.model.entity.SpotifyArtist;
+import net.ssingh.spotifyservice.model.entity.SpotifyTrack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service

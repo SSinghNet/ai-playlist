@@ -1,7 +1,7 @@
 package net.ssingh.spotifyservice.service;
 
 import net.ssingh.spotifyservice.client.SpotifyApiClient;
-import net.ssingh.spotifyservice.model.entity.spotify.SpotifyArtist;
+import net.ssingh.spotifyservice.model.entity.SpotifyArtist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

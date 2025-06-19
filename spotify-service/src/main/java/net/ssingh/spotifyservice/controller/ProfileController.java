@@ -3,7 +3,10 @@ package net.ssingh.spotifyservice.controller;
 import net.ssingh.spotifyservice.model.dto.request.profile.PlaylistsRequest;
 import net.ssingh.spotifyservice.model.dto.request.profile.SavedItemsRequest;
 import net.ssingh.spotifyservice.model.dto.request.profile.TopItemsRequest;
-import net.ssingh.spotifyservice.model.entity.spotify.*;
+import net.ssingh.spotifyservice.model.entity.SpotifyArtist;
+import net.ssingh.spotifyservice.model.entity.SpotifyPlaylistList;
+import net.ssingh.spotifyservice.model.entity.SpotifyTrack;
+import net.ssingh.spotifyservice.model.entity.SpotifyUser;
 import net.ssingh.spotifyservice.service.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,8 @@ public class ProfileController {
         this.service = service;
     }
 
-    @PostMapping({"", "/"})
-    public ResponseEntity<SpotifyUser> getProfile(@RequestBody String accessToken) {
+    @GetMapping({"", "/"})
+    public ResponseEntity<SpotifyUser> getProfile(@RequestParam String accessToken) {
         return service.getProfile(accessToken);
     }
 
