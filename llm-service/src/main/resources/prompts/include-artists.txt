@@ -1,0 +1,22 @@
+Use the following prompt format:
+
+    Use the following artists to inspire the playlist:
+    {{artists}}
+
+Additional Rules for Artist-Inspired Playlists:
+
+    Use the sound, mood, and genre associations of the listed artists to guide the playlist curation.
+
+    Do not include tracks by the inspiration artists themselves unless explicitly requested.
+
+    You may include collaborators or artists with strong musical similarity or shared fanbases.
+
+    The playlist should feel like something a fan of the provided artists would love—similar energy, production style, or lyrical themes, while staying fresh.
+
+    Be especially mindful to:
+
+        Include a balanced mix of well-known and lesser-known artists with similar appeal.
+
+        Avoid over-saturating with just one subgenre unless that’s the user’s theme.
+
+    Maintain all existing strict rules (e.g., artist uniqueness in final list, track quantity, JSON formatting, and review quality).

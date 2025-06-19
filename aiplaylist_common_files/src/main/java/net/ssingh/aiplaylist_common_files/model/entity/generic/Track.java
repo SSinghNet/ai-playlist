@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.model.entity.generic;
+package net.ssingh.aiplaylist_common_files.model.entity.generic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -21,6 +21,11 @@ public class Track<T extends Artist> {
             artists = new ArrayList<T>();
         }
         artists.add(artist);
+    }
+
+    @Override
+    public String toString() {
+        return "Track[" + "name='" + name + '\'' + ", artists=" + artists + ']';
     }
 
 }

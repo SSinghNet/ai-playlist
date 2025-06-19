@@ -1,11 +1,11 @@
-package net.ssingh.spotifyservice.model.dto.request.playlist;
+package net.ssingh.aiplaylist_common_files.model.dto.request.playlist;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.ssingh.spotifyservice.model.entity.generic.Artist;
-import net.ssingh.spotifyservice.model.entity.generic.Track;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Track;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,8 +1,7 @@
 package net.ssingh.spotifyservice.service;
 
 import net.ssingh.spotifyservice.client.SpotifyApiClient;
-import net.ssingh.spotifyservice.model.Artist;
-import net.ssingh.spotifyservice.model.SpotifyArtist;
+import net.ssingh.spotifyservice.model.entity.spotify.SpotifyArtist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +19,7 @@ public class ArtistService {
         try {
             return client.get("artists/" + id, SpotifyArtist.class);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new SpotifyArtist();
         }
     }

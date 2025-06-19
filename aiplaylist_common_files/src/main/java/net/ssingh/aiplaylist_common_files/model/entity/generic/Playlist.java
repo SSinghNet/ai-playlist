@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.model.entity.generic;
+package net.ssingh.aiplaylist_common_files.model.entity.generic;
 
 
 import com.fasterxml.jackson.annotation.JsonAlias;

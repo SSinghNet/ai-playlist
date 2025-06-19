@@ -1,7 +1,11 @@
 package net.ssingh.spotifyservice.controller;
 
-import net.ssingh.spotifyservice.model.SpotifyPlaylist;
-import net.ssingh.spotifyservice.model.SpotifyPlaylistRequest;
+import net.ssingh.aiplaylist_common_files.model.dto.request.playlist.GeneratePlaylistRequest;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Playlist;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Track;
+import net.ssingh.spotifyservice.model.entity.spotify.SpotifyPlaylist;
+import net.ssingh.spotifyservice.model.dto.request.playlist.CreatePlaylistRequest;
 import net.ssingh.spotifyservice.service.PlaylistService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +20,23 @@ public class PlaylistController {
         this.service = service;
     }
 
-    @GetMapping("/generate")
-    public ResponseEntity<SpotifyPlaylist> generatePlaylist(@RequestParam String userPrompt, @RequestParam int playlistLength) {
-        return service.generatePlaylist(userPrompt, playlistLength);
+    @PostMapping("/generate")
+    public ResponseEntity<SpotifyPlaylist> getGeneratedPlaylist(@RequestBody GeneratePlaylistRequest request) {
+        return service.generatePlaylist(request);
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<SpotifyPlaylist> createPlaylist(@RequestBody SpotifyPlaylistRequest request) {
+    public ResponseEntity<SpotifyPlaylist> createPlaylistForUser(@RequestBody CreatePlaylistRequest request) {
         return service.createPlaylistForUser(request.getPlaylist(), request.getAccessToken());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<SpotifyPlaylist> getPlaylistForUser(@PathVariable String id, @RequestBody String accessToken) {
+        return service.getUserPlaylist(accessToken, id);
+    }
+
+    @PostMapping("/generic")
+    public ResponseEntity<Playlist<?>> getGenericPlaylistFromSpotifyPlaylist(@RequestBody Playlist<Track<Artist>> playlist) {
+        return ResponseEntity.ok(playlist);
+    }
 }

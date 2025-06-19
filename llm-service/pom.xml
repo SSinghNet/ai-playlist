@@ -69,6 +69,11 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-openai</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.ssingh</groupId>
+            <artifactId>aiplaylist_common_files</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

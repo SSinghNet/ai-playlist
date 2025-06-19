@@ -49,7 +49,7 @@ export default function PlaylistCard({playlist}: { playlist: Playlist }) {
     };
 
     return (
-        <div className="flex flex-col items-center gap-3 border-2 rounded-lg p-5">
+        <div className="flex flex-col items-center gap-3 justify-center ">
             <span className={"text-3xl font-bold"}>{playlist.title}</span>
             <span className={"text-md"}>{playlist.description}</span>
             <div className={"flex items-center gap-2"}>
@@ -79,7 +79,7 @@ export default function PlaylistCard({playlist}: { playlist: Playlist }) {
                     : ""
                 }
             </div>
-            <div className={"m-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2"}>
+            <div className={"m-4 grid grid-cols-1 gap-2"}>
                 {playlist.tracks?.map(track => (
                     track.name ? <TrackCard track={track} key={track.uri}/> : null
                 ))}

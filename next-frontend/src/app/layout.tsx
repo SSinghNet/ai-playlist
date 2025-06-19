@@ -22,18 +22,18 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
                     crossOrigin="anonymous"
                 ></script>
             </head>
-            <body className={inter.className}>
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-            >
-                <Analytics/>
-                <AuthProvider>
-                    {children}
-                </AuthProvider>
-            </ThemeProvider>
+            <body className={inter.className + " overflow-hidden"}>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <Analytics/>
+                    <AuthProvider>
+                        {children}
+                    </AuthProvider>
+                </ThemeProvider>
             </body>
             {/*<GoogleAdsense />*/}
         </html>

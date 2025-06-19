@@ -1,15 +1,14 @@
-package net.ssingh.spotifyservice.model.spotify;
+package net.ssingh.spotifyservice.model.entity.spotify;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import net.ssingh.spotifyservice.model.generic.Artist;
+import lombok.*;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
 
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 

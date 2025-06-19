@@ -1,9 +1,12 @@
-package net.ssingh.spotifyservice.model;
+package net.ssingh.spotifyservice.model.enums;
 
-public enum TimeRange {
-    LONG_TERM("long_term"),
-    MEDIUM_TERM("medium_term"),
-    SHORT_TERM("short_term");
+import lombok.Getter;
+
+@Getter
+public enum adTimeRange {
+    LONG_TERM("long_term"), // 1 year
+    MEDIUM_TERM("medium_term"), //6 months
+    SHORT_TERM("short_term"); // 4 weeks
 
     private final String value;
 
@@ -11,7 +14,4 @@ public enum TimeRange {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }

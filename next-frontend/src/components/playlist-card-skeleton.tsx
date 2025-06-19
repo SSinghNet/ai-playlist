@@ -6,7 +6,7 @@ export default function PlaylistCardSkeleton() {
             <Skeleton className="h-8 w-1/3"/>
             <Skeleton className="h-3 w-full"/>
             <Skeleton className="h-3 w-full"/>
-            <div className={"m-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4"}>
+            <div className={"m-4 grid grid-cols-1 gap-2"}>
                 {
                     Array.from({length: 15}).map((_, i) => (
                         <div key={i} className="flex flex-row gap-4 items-center w-full">

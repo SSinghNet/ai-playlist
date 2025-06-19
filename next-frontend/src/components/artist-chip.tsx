@@ -18,7 +18,7 @@ export default function ArtistChip({artist}: { artist: Artist }) {
                         alt={artist.name}
                         className="rounded-full h-min aspect-square"
                     />
-                    <span className={"text-sm font-light"}> {artist.name} </span>
+                    <span className={"text-xs font-light"}> {artist.name} </span>
                 </div>
             </Link>
         </>

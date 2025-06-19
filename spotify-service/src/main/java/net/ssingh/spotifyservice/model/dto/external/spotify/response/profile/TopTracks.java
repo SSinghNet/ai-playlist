@@ -9,5 +9,5 @@ import java.util.List;
 @Getter
 public class TopTracks {
     @JsonProperty("items")
-    List<SpotifyTrack> items;
+    List<SpotifyTrack> tracks;
 }

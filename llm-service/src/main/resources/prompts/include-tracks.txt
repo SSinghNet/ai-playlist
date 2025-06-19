@@ -1,0 +1,16 @@
+Use the following prompt format:
+
+    Use the following tracks to inspire the playlist:
+    {{tracks}}
+
+Additional Rules:
+
+    Treat the provided tracks as inspiration for the playlist’s mood, style, genre, and emotional tone.
+
+    Do not include the same tracks in the final playlist unless explicitly requested.
+
+    Avoid repeating artists from the inspiration tracks unless it’s clearly justified by the theme.
+
+    The resulting playlist should feel like a curated extension of the inspiration—capturing the same vibe while introducing new, real, and interesting tracks that would appeal to someone who enjoys the input songs.
+
+    Maintain full adherence to all existing rules (e.g., artist uniqueness, platform availability, JSON format, track variety, etc.).

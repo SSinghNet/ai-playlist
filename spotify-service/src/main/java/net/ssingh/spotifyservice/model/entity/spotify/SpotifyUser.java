@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.model.spotify;
+package net.ssingh.spotifyservice.model.entity.spotify;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -13,9 +13,15 @@ export default function TrackCard({track}: { track: Track }) {
     const seconds = totalSeconds % 60;
 
     return (
-        <Card className={"p-3 flex flex-row relative items-center"}>
-            <div className="flex flew-row space-between gap-4 items-center justify-center mb-4">
-                <Image src={track.imageUrl} width={80} height={80} alt={track.name} className={"aspect-square h-min"}/>
+        <Card className={"p-2 flex flex-row relative items-center"}>
+            <div className="flex flew-row space-between gap-3 items-center justify-center mb-4">
+                <Image
+                    src={track.imageUrl}
+                    width={80}
+                    height={80}
+                    alt={track.name}
+                    className={"aspect-square h-min"}
+                />
                 <div className={"flex flex-col gap-2"}>
                     <Link
                         href={`https://open.spotify.com/track/${track.uri.replace("spotify:track:", "")}`}
@@ -24,12 +30,14 @@ export default function TrackCard({track}: { track: Track }) {
                     >
                         {track.name}
                     </Link>
-                    <div className={"grid gap-2 space-between grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}>{
+                    <div className={"grid gap-2 space-between grid-cols-1 md:grid-cols-2"}>{
                         track.artists.map((artist: Artist) => (
                             <ArtistChip key={artist.uri} artist={artist}/>
                         ))
                     }</div>
-                    <span className={"text-xs font-light"}> {minutes}:{seconds.toString().padStart(2, "0")}</span>
+                    <span className={"text-xs font-light"}>
+                        {minutes}:{seconds.toString().padStart(2, "0")}
+                    </span>
                 </div>
             </div>
             <CardFooter className={"absolute bottom-2 right-[-10] font-extralight text-[0.7em]"}>

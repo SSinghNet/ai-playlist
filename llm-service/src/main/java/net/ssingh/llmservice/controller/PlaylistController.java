@@ -1,13 +1,13 @@
 package net.ssingh.llmservice.controller;
 
-import net.ssingh.llmservice.model.Playlist;
+import net.ssingh.aiplaylist_common_files.model.dto.request.playlist.GeneratePlaylistRequest;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Playlist;
+import net.ssingh.aiplaylist_common_files.model.entity.generic.Track;
 import net.ssingh.llmservice.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -21,8 +21,8 @@ public class PlaylistController {
         this.service = service;
     }
 
-    @GetMapping("/generate")
-    public ResponseEntity<Playlist> generatePlaylist(@RequestParam String userPrompt,@RequestParam int playlistLength) {
-        return service.generatePlaylist(userPrompt, playlistLength);
+    @PostMapping("/generate")
+    public ResponseEntity<Playlist<Track<Artist>>> generatePlaylist(@RequestBody GeneratePlaylistRequest request) {
+        return service.generatePlaylist(request);
     }
 }
