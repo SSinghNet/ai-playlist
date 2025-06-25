@@ -1,7 +1,7 @@
 "use client";
 
 import {Input} from "@/components/ui/input";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Slider} from "@/components/ui/slider";
 import {
@@ -15,7 +15,7 @@ import {
 import {useSession} from "next-auth/react";
 import {Session} from "@/models/Session";
 import {toast} from "sonner";
-import {Playlist, SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
+import {SpotifyPlaylist} from "@/models/Playlist";
 import PlaylistTile from "@/components/playlist-tile";
 
 type QueryBarProps = {
