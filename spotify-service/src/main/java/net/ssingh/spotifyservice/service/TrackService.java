@@ -31,17 +31,7 @@ public class TrackService {
                     SpotifyTrack.class
             );
 
-            if (track == null) {
-                return null;
-            }
-
-            ArrayList<SpotifyArtist> enrichedArtists = (ArrayList<SpotifyArtist>) track.getArtists().stream()
-                    .map(a -> artistService.getArtist(a.getSpotifyId()))
-                    .collect(Collectors.toList());
-
-            track.setArtists(enrichedArtists);
-
-            return track;
+            return getSpotifyTrack(track);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new SpotifyTrack();
@@ -59,20 +49,24 @@ public class TrackService {
                     TrackSearch.class
             ).getTrack();
 
-            if (track == null) {
-                return null;
-            }
-
-            ArrayList<SpotifyArtist> enrichedArtists = (ArrayList<SpotifyArtist>) track.getArtists().stream()
-                    .map(a -> artistService.getArtist(a.getSpotifyId()))
-                    .collect(Collectors.toList());
-
-            track.setArtists(enrichedArtists);
-
-            return track;
+            return getSpotifyTrack(track);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new SpotifyTrack();
         }
+    }
+
+    private SpotifyTrack getSpotifyTrack(SpotifyTrack track) {
+        if (track == null) {
+            return null;
+        }
+
+        ArrayList<SpotifyArtist> enrichedArtists = (ArrayList<SpotifyArtist>) track.getArtists().stream()
+                .map(a -> artistService.getArtist(a.getSpotifyId()))
+                .collect(Collectors.toList());
+
+        track.setArtists(enrichedArtists);
+
+        return track;
     }
 }

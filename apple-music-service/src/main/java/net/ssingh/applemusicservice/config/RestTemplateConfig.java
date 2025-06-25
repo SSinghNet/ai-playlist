@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.config;
+package net.ssingh.applemusicservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

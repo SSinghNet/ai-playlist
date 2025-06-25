@@ -10,6 +10,7 @@ import net.ssingh.spotifyservice.model.dto.external.spotify.request.playlist.Add
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Playlist;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Track;
+import net.ssingh.spotifyservice.model.dto.external.spotify.response.playlist.UserPlaylistResponse;
 import net.ssingh.spotifyservice.model.entity.SpotifyPlaylist;
 import net.ssingh.spotifyservice.model.entity.SpotifyTrack;
 import org.springframework.context.annotation.Lazy;
@@ -83,7 +84,7 @@ public class PlaylistService {
             return ResponseEntity.ok(spotifyPlaylist);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -112,15 +113,21 @@ public class PlaylistService {
         }
     }
 
-    public ResponseEntity<SpotifyPlaylist> getUserPlaylist(String accessToken, String id) {
+    public ResponseEntity<SpotifyPlaylist> getUserPlaylist(String id, String accessToken) {
         try {
-            SpotifyPlaylist playlist = spotifyApiClient.get(
+            UserPlaylistResponse response = spotifyApiClient.get(
                     "playlists/" + id + "?fields=name, description, id, tracks.items(track(name,uri, id, duration_ms, artists))",
-                    SpotifyPlaylist.class,
+                    UserPlaylistResponse.class,
                     accessToken
             );
 
-            playlist.getTrackIds().forEach(trackId -> playlist.getTracks().add(trackService.getTrackById(trackId)));
+            SpotifyPlaylist playlist = new SpotifyPlaylist();
+            playlist.setSpotifyId(response.getId());
+            playlist.setTitle(response.getName());
+            playlist.setDescription(response.getDescription());
+            response.getTracks().getItems().forEach(item ->
+                    playlist.addTrack(trackService.getTrackById(item.getTrack().getSpotifyId()))
+            );
 
             return ResponseEntity.ok(playlist);
         } catch (JsonProcessingException e) {

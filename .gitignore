@@ -1,3 +1,5 @@
+docker-compose.yml
+.env
 deploy.bat
 
 # Compiled class file

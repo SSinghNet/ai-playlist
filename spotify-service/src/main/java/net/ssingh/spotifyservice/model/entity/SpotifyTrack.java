@@ -1,5 +1,6 @@
 package net.ssingh.spotifyservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Track;
@@ -16,7 +17,7 @@ public class SpotifyTrack extends Track<SpotifyArtist> {
     @JsonProperty("id")
     private String spotifyId;
 
-    @JsonProperty("duration_ms")
+    @JsonAlias("duration_ms")
     private int durationMs;
 
     private String imageUrl;

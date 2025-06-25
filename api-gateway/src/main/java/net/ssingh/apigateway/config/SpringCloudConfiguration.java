@@ -13,7 +13,11 @@ public class SpringCloudConfiguration {
                 .route("spotifyModule", r -> r.path("/spotify/**")
                         .filters(f -> f.stripPrefix(1))
                         .uri("lb://SPOTIFY-SERVICE")
-
-                ).build();
+                )
+                .route("soundcloudModule", r -> r.path("/soundcloud/**")
+                        .filters(f -> f.stripPrefix(1))
+                        .uri("lb://SOUNDCLOUD-SERVICE")
+                )
+                .build();
     }
 }

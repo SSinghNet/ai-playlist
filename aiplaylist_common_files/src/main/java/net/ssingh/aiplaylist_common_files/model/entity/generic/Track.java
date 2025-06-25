@@ -1,5 +1,6 @@
 package net.ssingh.aiplaylist_common_files.model.entity.generic;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class Track<T extends Artist> {
 
-    @JsonProperty("name")
+    @JsonAlias({"name", "title"})
     private String name;
     private ArrayList<T> artists;
 

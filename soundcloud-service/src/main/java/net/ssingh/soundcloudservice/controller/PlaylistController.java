@@ -26,8 +26,8 @@ public class PlaylistController {
         return service.createPlaylistForUser(request.getPlaylist(), request.getAccessToken());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SoundCloudPlaylist> getUserPlaylist(@PathVariable String id, @RequestBody String accessToken) {
-        return service.getUserPlaylist(id, accessToken);
+    @GetMapping("/{urn}")
+    public ResponseEntity<SoundCloudPlaylist> getUserPlaylist(@PathVariable String urn, @RequestParam String accessToken) {
+        return service.getUserPlaylist(urn, accessToken);
     }
 }

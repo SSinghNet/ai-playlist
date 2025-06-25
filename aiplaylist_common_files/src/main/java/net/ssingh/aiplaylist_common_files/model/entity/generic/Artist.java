@@ -1,11 +1,11 @@
 package net.ssingh.aiplaylist_common_files.model.entity.generic;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 @Data
 public class Artist {
-    @JsonProperty("name")
+    @JsonAlias({"name", "username"})
     private String name;
 
     @Override

@@ -31,8 +31,8 @@ public class PlaylistController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpotifyPlaylist> getUserPlaylist(@PathVariable String id, @RequestBody String accessToken) {
-        return service.getUserPlaylist(accessToken, id);
+    public ResponseEntity<SpotifyPlaylist> getUserPlaylist(@PathVariable String id, @RequestParam String accessToken) {
+        return service.getUserPlaylist(id, accessToken);
     }
 
     //todo: move somewhere else?

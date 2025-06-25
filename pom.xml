@@ -1,0 +1,16 @@
+<project>
+      <modelVersion>4.0.0</modelVersion>
+      <groupId>net.ssingh</groupId>
+      <artifactId>aiplaylist-root</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <packaging>pom</packaging>
+      <modules>
+          <module>aiplaylist_common_files</module>
+          <module>soundcloud-service</module>
+          <module>spotify-service</module>
+          <module>llm-service</module>
+          <module>service-registry</module>
+          <module>api-gateway</module>
+      </modules>
+</project>        
+

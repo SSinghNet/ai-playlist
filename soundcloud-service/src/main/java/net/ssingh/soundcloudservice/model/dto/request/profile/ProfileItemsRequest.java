@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlaylistsRequest implements Serializable {
+public class ProfileItemsRequest implements Serializable {
     @JsonProperty(required = true)
     String accessToken;
     @JsonProperty(required = true)

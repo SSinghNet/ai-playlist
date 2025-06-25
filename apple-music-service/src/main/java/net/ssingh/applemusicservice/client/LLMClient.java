@@ -1,4 +1,4 @@
-package net.ssingh.spotifyservice.client;
+package net.ssingh.applemusicservice.client;
 
 import net.ssingh.aiplaylist_common_files.model.dto.request.playlist.GeneratePlaylistRequest;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Artist;
