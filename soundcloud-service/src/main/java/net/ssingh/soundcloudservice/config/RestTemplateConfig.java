@@ -1,11 +1,11 @@
-package net.ssingh.spotifyservice.config;
+package net.ssingh.soundcloudservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-public class SpotifyRestTemplateConfig {
+public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

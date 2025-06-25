@@ -1,14 +1,19 @@
-import {Artist} from "@/models/Artist";
+import {SoundCloudArtist, SpotifyArtist} from "@/models/Artist";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ArtistChip({artist}: { artist: Artist }) {
+export default function ArtistChip({artist, service}: {
+    artist: SpotifyArtist | SoundCloudArtist,
+    service?: "spotify" | "soundcloud"
+}) {
     return (
         <>
             <Link
-                href={`https://open.spotify.com/artist/${artist.uri.replace("spotify:artist:", "")}`}
+                href={ service === "spotify" ?
+                    `https://open.spotify.com/artist/${(artist as SpotifyArtist).uri.replace("spotify:artist:", "")}`
+                    : (artist as SoundCloudArtist).url}
                 target="_blank"
-                className={"hover:decoration-1 hover:decoration-[#1ed760] hover:underline"}
+                className={`hover:decoration-1 hover:underline`}
             >
                 <div className={"flex flex-row gap-2 items-center"}>
                     <Image
@@ -16,7 +21,7 @@ export default function ArtistChip({artist}: { artist: Artist }) {
                         width={25}
                         height={25}
                         alt={artist.name}
-                        className="rounded-full h-min aspect-square"
+                        className="rounded-full h-min aspect-square shadow-md"
                     />
                     <span className={"text-xs font-light"}> {artist.name} </span>
                 </div>
