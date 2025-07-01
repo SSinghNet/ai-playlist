@@ -18,7 +18,7 @@ export default function LoginWithProviders() {
     console.log(session);
 
     const fetchProfile = async () => {
-        return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${service}/profile/?accessToken=${accessToken}`, {
+        return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${service}/profile/playlists?accessToken=${accessToken}&limit=1&offset=0`, {
             method: "get",
             headers: {
                 'Accept': 'application/json',
