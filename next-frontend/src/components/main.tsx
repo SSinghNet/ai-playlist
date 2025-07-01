@@ -2,8 +2,8 @@
 
 import {useEffect, useState} from "react";
 import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
-import QuerySection from "@/components/query-section";
-import PlaylistSection from "@/components/playlist-section";
+import QuerySection from "@/components/query/query-section";
+import PlaylistSection from "@/components/playlist/playlist-section";
 import {useSession} from "next-auth/react";
 import {Session} from "@/models/Session";
 

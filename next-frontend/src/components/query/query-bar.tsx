@@ -4,22 +4,15 @@ import {Input} from "@/components/ui/input";
 import {useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Slider} from "@/components/ui/slider";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger
-} from "@/components/ui/dialog"
-import {useSession} from "next-auth/react";
-import {Session} from "@/models/Session";
-import {toast} from "sonner";
-import {SpotifyPlaylist} from "@/models/Playlist";
-import PlaylistTile from "@/components/playlist-tile";
+import UserPlaylists from "@/components/query/user-playlists";
+import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
+import {Track} from "@/models/Track";
+import SelectTracks from "@/components/query/select-tracks";
+import {Artist} from "@/models/Artist";
+import SelectArtists from "@/components/query/select-artists";
 
 type QueryBarProps = {
-    fetchPlaylistAction: (query: string, playlistLength: number, temperature: number, nicheSlider: number) => Promise<void>;
+    fetchPlaylistAction: (query: string, playlistLength: number, temperature: number, nicheSlider: number, selectedPlaylist: SpotifyPlaylist | SoundCloudPlaylist | null, selectedTracks: Track<Artist>[], selectedArtists: Artist[]) => Promise<void>;
     isLoading: boolean;
     service: "soundcloud" | "spotify";
 };
@@ -28,47 +21,18 @@ export default function QueryBar({fetchPlaylistAction, isLoading, service}: Quer
 
     const [query, setQuery] = useState<string>("");
     const [playlistLength, setPlaylistLength] = useState<number>(10);
-    const [creativity, setCreativity] = useState<number>(0.5);
+    const [creativity, setCreativity] = useState<number>(1);
     const [popularity, setPopularity] = useState<number>(0.5);
 
-    const [userPlaylists, setUserPlaylists] = useState<SpotifyPlaylist[]>([]);
-
-    const {data: sessionData} = useSession();
-    const session = sessionData as Session;
-    const accessToken = session?.token.access_token;
-
-    const fetchUserPlaylists = async () => {
-        if (!accessToken || service !== "spotify") {
-            return;
-        }
-        try {
-            fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${service}/profile/playlists?accessToken=${accessToken}&limit=5&offset=0`, {
-                method: "get",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-
-            }).then(async (response) => {
-                if (response.status !== 200) {
-                    toast.error("An error occurred while fetching user playlists. Please try again.");
-                    console.error(response);
-                    return;
-                }
-                const data = await response.json();
-                setUserPlaylists(data.playlists as SpotifyPlaylist[]);
-            });
-        } catch (err) {
-            toast.error("Failed getting user playlists. Try signing out and back in or try again later.");
-            console.error("Failed to fetch playlists:", err);
-        }
-    };
+    const [selectedPlaylist, setSelectedPlaylist] = useState<SpotifyPlaylist | SoundCloudPlaylist | null>(null);
+    const [selectedTracks, setSelectedTracks] = useState<Track<Artist>[]>([]);
+    const [selectedArtists, setSelectedArtists] = useState<Artist[]>([]);
 
     return (
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                await fetchPlaylistAction(query, playlistLength, creativity, popularity)
+                await fetchPlaylistAction(query, playlistLength, creativity, popularity, selectedPlaylist, selectedTracks, selectedArtists)
             }}
         >
             <div className="grid grid-cols-12 items-center gap-4 m-6">
@@ -102,9 +66,9 @@ export default function QueryBar({fetchPlaylistAction, isLoading, service}: Quer
                     <label htmlFor={"creativity"} className={"text-md opacity-75 font-light"}>Creativity</label>
                     <Slider
                         name={"creativity"}
-                        defaultValue={[0.5]}
+                        defaultValue={[1]}
                         min={0}
-                        max={1}
+                        max={2}
                         step={.01}
                         leftLabel={"Predictable"}
                         rightLabel={"Creative"}
@@ -132,28 +96,27 @@ export default function QueryBar({fetchPlaylistAction, isLoading, service}: Quer
                     />
                 </div>
 
-                {false && accessToken && service === "spotify" ?
-                    <Dialog>
-                        <DialogTrigger
-                            className={"col-span-12 md:col-span-4 bg-accent text-accent-foreground shadow-xs hover:bg-accent/90 rounded-md p-2"}
-                            onClick={fetchUserPlaylists}
-                        >
-                            Use Playlist
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>Playlist List</DialogTitle>
-                                <DialogDescription>
-                                    Choose a playlist to inspire your new generated playlist.
-                                </DialogDescription>
-                            </DialogHeader>
-                            {
-                                userPlaylists ? userPlaylists.map((playlist) => <PlaylistTile key={playlist.spotifyId} playlist={playlist} />)
-                                    : "Loading..."
-                            }
-                        </DialogContent>
-                    </Dialog>
-                    : ""}
+                <div className={"col-span-12 md:col-span-4 w-full items-center"}>
+                    {selectedPlaylist ?
+                        <div className={"flex justify-between bg-accent rounded-md p-1 px-2 text-center items-center gap-1"}>
+                            <span className={"font-bold m-auto"}>Selected Playlist:</span><span className={"m-auto text-sm"}> {selectedPlaylist.title}</span>
+                            <Button
+                                onClick={() => setSelectedPlaylist(null)}
+                                variant={"ghost"}
+                                className={"m-auto"}
+                            >
+                                X
+                            </Button>
+                        </div>
+                        : <UserPlaylists service={service} setSelectedPlaylist={setSelectedPlaylist}/>}
+                </div>
+                <div className={"col-span-12 md:col-span-4 w-full items-center"}>
+                    <SelectTracks service={service} tracks={selectedTracks} setTracks={setSelectedTracks}/>
+                </div>
+
+                <div className={"col-span-12 md:col-span-4 w-full items-center"}>
+                    <SelectArtists service={service} artists={selectedArtists} setArtists={setSelectedArtists}/>
+                </div>
 
                 <Button
                     variant={"default"}

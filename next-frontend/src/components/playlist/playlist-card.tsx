@@ -1,5 +1,5 @@
 import {SpotifyPlaylist, SoundCloudPlaylist} from "@/models/Playlist";
-import TrackCard from "@/components/track-card";
+import TrackCard from "@/components/playlist/track-card";
 import {Button} from "@/components/ui/button";
 import {useSession} from "next-auth/react";
 import {Session} from "@/models/Session";

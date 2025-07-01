@@ -1,5 +1,5 @@
-import PlaylistCard from "@/components/playlist-card";
-import PlaylistCardSkeleton from "@/components/playlist-card-skeleton";
+import PlaylistCard from "@/components/playlist/playlist-card";
+import PlaylistCardSkeleton from "@/components/playlist/playlist-card-skeleton";
 import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
 
 export default function PlaylistSection({playlist, isLoading, service}: {

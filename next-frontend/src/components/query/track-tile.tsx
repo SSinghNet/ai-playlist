@@ -1,12 +1,12 @@
 import {SoundCloudTrack, SpotifyTrack} from "@/models/Track";
 import Image from "next/image";
 import {Card, CardFooter} from "@/components/ui/card";
-import ArtistChip from "@/components/artist-chip";
+import ArtistChip from "@/components/playlist/artist-chip";
 import {SoundCloudArtist, SpotifyArtist} from "@/models/Artist";
 import SpotifyLogoFull from "@/components/spotify-logo-full";
 import Link from "next/link";
 
-export default function TrackCard({track, service}: {
+export default function TrackTile({track, service}: {
     track: SpotifyTrack | SoundCloudTrack,
     service: "spotify" | "soundcloud"
 }) {
@@ -16,12 +16,12 @@ export default function TrackCard({track, service}: {
     const seconds = totalSeconds % 60;
 
     return (
-        <Card className={"p-2 flex flex-row relative items-center w-full "}>
-            <div className="flex flew-row space-between gap-3 items-center justify-center mb-4">
+        <Card className={"p-2 flex flex-row relative w-full justify-between "}>
+            <div className={"flex flex-row  gap-4 w-full"}>
                 <Image
                     src={track.imageUrl ? track.imageUrl : "/blank-artist-image.png"}
-                    width={80}
-                    height={80}
+                    width={50}
+                    height={50}
                     alt={track.name}
                     className={"aspect-square h-min shadow-lg"}
                 />
@@ -33,11 +33,11 @@ export default function TrackCard({track, service}: {
                                 : (track as SoundCloudTrack).url
                         }
                         target="_blank"
-                        className={`text-lg font-bold hover:decoration-1 hover:underline`}
+                        className={`text-sm font-bold hover:decoration-1 hover:underline`}
                     >
                         {track.name}
                     </Link>
-                    <div className={"grid gap-2 justify-between grid-cols-1 md:grid-cols-2 xl:grid-cols-3"}>{
+                    <div className={"grid gap-2 justify-between grid-cols-1 md:grid-cols-2 xl:grid-cols-3 text-xs"}>{
                         track.artists.map((artist: SpotifyArtist | SoundCloudArtist) => (
                             <ArtistChip
                                 key={service === "spotify" ? (artist as SpotifyArtist).uri : (artist as SoundCloudArtist).urn}
@@ -46,17 +46,11 @@ export default function TrackCard({track, service}: {
                             />
                         ))
                     }</div>
-                    <span className={"text-xs font-light"}>
-                        {minutes}:{seconds.toString().padStart(2, "0")}
-                    </span>
                 </div>
             </div>
-            {service === "spotify" ?
-                <CardFooter className={"absolute bottom-2 right-[-10] font-extralight text-[0.7em]"}>
-                    Metadata provided by&nbsp;<SpotifyLogoFull className={"w-12"} inverted={true}/>
-                </CardFooter>
-                : ""
-            }
+            <span className={"text-xs font-light  m-auto"}>
+                {minutes}:{seconds.toString().padStart(2, "0")}
+            </span>
         </Card>
     );
 }

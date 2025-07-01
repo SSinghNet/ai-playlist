@@ -1,4 +1,4 @@
-import ModeToggle from "@/components/mode-toggle";
+import ModeToggle from "@/components/util/mode-toggle";
 import Main from "@/components/main";
 import {Toaster} from "sonner";
 
