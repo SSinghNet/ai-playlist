@@ -1,9 +1,8 @@
 import {SoundCloudTrack, SpotifyTrack} from "@/models/Track";
 import Image from "next/image";
-import {Card, CardFooter} from "@/components/ui/card";
+import {Card} from "@/components/ui/card";
 import ArtistChip from "@/components/playlist/artist-chip";
 import {SoundCloudArtist, SpotifyArtist} from "@/models/Artist";
-import SpotifyLogoFull from "@/components/spotify-logo-full";
 import Link from "next/link";
 
 export default function TrackTile({track, service}: {
