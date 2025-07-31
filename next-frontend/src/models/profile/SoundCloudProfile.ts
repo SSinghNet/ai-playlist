@@ -16,11 +16,11 @@ export default class SoundCloudProfile extends Profile {
             hasPrev: boolean;
         };
     }
-
+    // eslint-disable-next-line
     fetchTopTracks(accessToken: string, limit: number, term: TimeRange): Promise<SoundCloudTrack[]> {
         throw new Error("Operation not supported.");
     }
-
+    // eslint-disable-next-line
     fetchTopArtists(accessToken: string, limit: number, term: TimeRange): Promise<SoundCloudArtist[]> {
         throw new Error("Operation not supported.");
     }

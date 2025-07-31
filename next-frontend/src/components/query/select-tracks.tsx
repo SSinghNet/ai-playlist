@@ -1,6 +1,4 @@
 import {Dispatch, SetStateAction, useState} from "react";
-import {useSession} from "next-auth/react";
-import {Session} from "@/models/Session";
 import {
     Dialog,
     DialogTrigger,
@@ -115,6 +113,7 @@ export default function SelectTracks({tracks, setTracks}: {
                                         <TrackTile
                                             key={track.key + track.name}
                                             track={track}
+                                            addSelectedTrack={()=>{}}
                                         />
                                         <Button
                                             key={track.key}

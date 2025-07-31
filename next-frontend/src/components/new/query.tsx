@@ -11,7 +11,6 @@ import {useService} from "@/hooks/useService";
 import GenericArtist from "@/models/artist/GenericArtist";
 import GenericTrack from "@/models/track/GenericTrack";
 import {Badge} from "@/components/ui/badge";
-import {remove} from "next/dist/build/webpack/loaders/resolve-url-loader/lib/file-protocol";
 import AddTrackDialog from "@/components/new/add-track-dialog";
 import AddArtistDialog from "@/components/new/add-artist-dialog";
 import {toast} from "sonner";

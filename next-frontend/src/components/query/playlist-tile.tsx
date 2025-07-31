@@ -84,7 +84,9 @@ export default function PlaylistTile({playlist, setSelectedPlaylistAction}: {
                 {fullPlaylist ? fullPlaylist.tracks.map((track: Track<Artist>) =>
                     <TrackTile
                                key={service === "spotify" ? (track as SpotifyTrack).uri : (track as SoundCloudTrack).urn}
-                               track={track}/>
+                               track={track}
+                               addSelectedTrack={() => {}}
+                    />
                 ) : "Loading..."}
             </DialogContent>
         </Dialog>

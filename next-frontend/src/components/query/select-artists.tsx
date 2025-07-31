@@ -1,6 +1,4 @@
 import {Dispatch, SetStateAction, useState} from "react";
-import {useSession} from "next-auth/react";
-import {Session} from "@/models/Session";
 import {
     Dialog,
     DialogTrigger,

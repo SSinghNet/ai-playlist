@@ -11,8 +11,6 @@ import {
 import PlaylistTile from "@/components/query/playlist-tile";
 import {Button} from "@/components/ui/button";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {useSession} from "next-auth/react";
-import {Session} from "@/models/Session";
 import {toast} from "sonner";
 import {SoundCloudPlaylist} from "@/models/playlist/SoundCloudPlaylist";
 import {SpotifyPlaylist} from "@/models/playlist/SpotifyPlaylist";
@@ -38,6 +36,7 @@ export default function UserPlaylists({setSelectedPlaylistAction}: {
 
     useEffect(() => {
         fetchUserPlaylists();
+    // eslint-disable-next-line
     }, [offset]);
 
     const fetchUserPlaylists = async () => {

@@ -10,7 +10,6 @@ import GenericTrack from "@/models/track/GenericTrack";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
-import {Artist} from "@/models/artist/Artist";
 import GenericArtist from "@/models/artist/GenericArtist";
 
 interface AddTrackDialogProps {

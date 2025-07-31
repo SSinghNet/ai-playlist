@@ -66,6 +66,7 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
             }
         }
         set();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken]);
 
     useEffect(() => {
@@ -86,6 +87,7 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
         } catch (err) {
             toast.error((err as Error).message);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playlistOffset]);
 
     useEffect(() => {
@@ -103,6 +105,7 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
         } catch (err) {
             toast.error((err as Error).message);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trackTerm]);
 
     useEffect(() => {
@@ -120,6 +123,7 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
         } catch (err) {
             toast.error((err as Error).message);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [artistTerm]);
 
     return (
