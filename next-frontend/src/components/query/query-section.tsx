@@ -1,21 +1,30 @@
 import LoginWithProviders from "@/components/util/login-with-providers";
 import QueryBar from "@/components/query/query-bar";
 import {toast} from "sonner";
-import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
 import {Dispatch, SetStateAction} from "react";
-import {Track} from "@/models/Track";
-import {Artist} from "@/models/Artist";
+import {Track} from "@/models/track/Track";
+import {Artist} from "@/models/artist/Artist";
+import {PlaylistFactory} from "@/models/playlist/PlaylistFactory";
+import {Playlist} from "@/models/playlist/Playlist";
+import {useService} from "@/hooks/useService";
 
-export default function QuerySection({setPlaylist, isLoading, setIsLoading, service}: {
-    setPlaylist: Dispatch<SetStateAction<SpotifyPlaylist | SoundCloudPlaylist | null>>,
+export default function QuerySection({setPlaylist, isLoading, setIsLoading}: {
+    setPlaylist: Dispatch<SetStateAction<Playlist<Track<Artist>> | null>>,
     isLoading: boolean,
-    setIsLoading: Dispatch<SetStateAction<boolean>>,
-    service: "soundcloud" | "spotify"
+    setIsLoading: Dispatch<SetStateAction<boolean>>
 }) {
 
+    const service = useService();
 
-    const fetchPlaylist = async (query: string, playlistLength: number, temperature: number,
-                                 nicheSlider: number, playlist: SpotifyPlaylist | SoundCloudPlaylist | null, selectedTracks: Track<Artist>[], selectedArtists: Artist[]) => {
+    const fetchPlaylist = async (
+        query: string,
+        playlistLength: number,
+        temperature: number,
+        nicheSlider: number,
+        playlist: Playlist<Track<Artist>> | null,
+        selectedTracks: Track<Artist>[],
+        selectedArtists: Artist[]
+    ) => {
         if (!query || query.length < 3 || query.length > 100) {
             toast.info("Prompt must be at least 3 characters and no more than 100 characters.");
             return;
@@ -26,30 +35,17 @@ export default function QuerySection({setPlaylist, isLoading, setIsLoading, serv
         }
         setIsLoading(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${service}/playlist/generate`, {
-                method: "POST",
-                body: JSON.stringify({
-                    userPrompt: query,
-                    playlistLength: playlistLength,
-                    temperature: temperature,
-                    nicheSlider: nicheSlider,
-                    tracks: [...((playlist?.tracks as Track<Artist>[]) || []), ...selectedTracks],
-                    artists: selectedArtists as Artist[],
-                }),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            });
-
-            const data = await res.json();
-
-            if (res.status !== 200) {
-                toast.error("Error while fetching playlist. Try again later.");
-                throw new Error("Failed to generate playlist");
+            const req = {
+                query: query,
+                playlistLength: playlistLength,
+                temperature: temperature,
+                nicheSlider: nicheSlider,
+                playlist: playlist,
+                selectedTracks: selectedTracks,
+                selectedArtists: selectedArtists
             }
-            setPlaylist(data);
-            localStorage.setItem(`playlist-${service}`, JSON.stringify(data));
+            setPlaylist(await PlaylistFactory.generatePlaylist(service ? service : "spotify", req))
+            // localStorage.setItem(`playlist-${service}`, JSON.stringify(data));
             setIsLoading(false);
         } catch (err) {
             console.error("Failed to fetch playlist:", err);
@@ -70,7 +66,7 @@ export default function QuerySection({setPlaylist, isLoading, setIsLoading, serv
                     you’re feeling and press go. The soundtrack to your life is only a sentence away.</p>
             </div>
             <div className={"flex flex-col"}>
-                <QueryBar fetchPlaylistAction={fetchPlaylist} isLoading={isLoading} service={service}/>
+                <QueryBar fetchPlaylistAction={fetchPlaylist} isLoading={isLoading}/>
                 <div className={"bg-accent py-4 px-6 "}>
                     <LoginWithProviders/>
                 </div>

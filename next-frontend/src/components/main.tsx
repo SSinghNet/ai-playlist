@@ -1,47 +1,57 @@
 'use client'
 
 import {useEffect, useState} from "react";
-import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
 import QuerySection from "@/components/query/query-section";
 import PlaylistSection from "@/components/playlist/playlist-section";
-import {useSession} from "next-auth/react";
-import {Session} from "@/models/Session";
+
+import {Playlist} from "@/models/playlist/Playlist";
+import {Artist} from "@/models/artist/Artist";
+import {Track} from "@/models/track/Track";
+import {useService} from "@/hooks/useService";
+import {SpotifyPlaylist} from "@/models/playlist/SpotifyPlaylist";
+import {ServiceMapPlaylist} from "@/models/ServiceMap";
+import {SoundCloudPlaylist} from "@/models/playlist/SoundCloudPlaylist";
 
 export default function Main() {
-    const [playlist, setPlaylist] = useState<SpotifyPlaylist | SoundCloudPlaylist | null>(null);
+    const [playlist, setPlaylist] = useState<Playlist<Track<Artist>> | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const {data: sessionData} = useSession();
-    const session = sessionData as Session;
-    const [service, setService] = useState<"soundcloud" | "spotify">("spotify");
+    const service = useService();
 
     useEffect(() => {
-        if (!session) return;
+        if (!service) return;
 
-        const resolvedService: "spotify" | "soundcloud" =
-            session.token.sub.includes("soundcloud") ? "soundcloud" : "spotify";
-
-        setService(resolvedService);
-
-        const stored: string | null = localStorage.getItem(`playlist-${resolvedService}`);
+        const stored: string | null = localStorage.getItem(`playlist-${service}`);
         const parsed = stored ? JSON.parse(stored) : null;
-        setPlaylist(parsed);
-    }, [session]);
+        switch (service) {
+            case 'spotify':
+                return setPlaylist(SpotifyPlaylist.fromJSON(parsed) as ServiceMapPlaylist[typeof service]);
+            case 'soundcloud':
+                return setPlaylist(SoundCloudPlaylist.fromJSON(parsed) as ServiceMapPlaylist[typeof service]);
+            default:
+                throw new Error("Something went wrong.")
+        }
+    }, [service]);
 
 
     return (
-        <div className={"grid grid-cols-4 md:grid-cols-6 min-h-screen max-h-screen justify-between w-full"}>
+        <div>
 
-            <div className={"col-span-6 md:col-span-4 overflow-y-auto h-full w-full"}>
-                <QuerySection setPlaylist={setPlaylist} isLoading={isLoading} setIsLoading={setIsLoading}
-                              service={service}/>
-            </div>
-            <div className={"border-l-1 border-[#222222] col-span-6 md:col-span-2 overflow-y-auto h-full w-full"}>
-                <PlaylistSection
-                    playlist={playlist}
+            <div>
+                <QuerySection
+                    setPlaylist={setPlaylist}
                     isLoading={isLoading}
-                    service={service}
+                    setIsLoading={setIsLoading}
                 />
+            </div>
+            <div>
+                {playlist ?
+                    <PlaylistSection
+                        setPlaylist={setPlaylist}
+                        playlist={playlist}
+                        isLoading={isLoading}
+                    /> : ""
+                }
             </div>
 
         </div>

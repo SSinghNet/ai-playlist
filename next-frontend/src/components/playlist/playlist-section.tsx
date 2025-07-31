@@ -1,18 +1,22 @@
-import PlaylistCard from "@/components/playlist/playlist-card";
+import PlaylistDialog from "@/components/new/playlist-dialog";
 import PlaylistCardSkeleton from "@/components/playlist/playlist-card-skeleton";
-import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
+import {Playlist} from "@/models/playlist/Playlist";
+import {Artist} from "@/models/artist/Artist";
+import {Track} from "@/models/track/Track";
+import {Dispatch, SetStateAction} from "react";
 
-export default function PlaylistSection({playlist, isLoading, service}: {
-    playlist: SpotifyPlaylist | SoundCloudPlaylist | null,
+export default function PlaylistSection({setPlaylist, playlist, isLoading,}: {
+    setPlaylist: Dispatch<SetStateAction<Playlist<Track<Artist>> | null>>,
+    playlist: Playlist<Track<Artist>>,
     isLoading: boolean,
-    service: "soundcloud" | "spotify"
 }) {
     return (
         <div className={"p-5"}>
             {playlist && !isLoading ?
-                <PlaylistCard
+                <PlaylistDialog
+                    setPlaylistAction={setPlaylist}
                     playlist={playlist}
-                    service={service}
+                    key={playlist.key}
                 />
                 : (
                     isLoading ? <PlaylistCardSkeleton/> :

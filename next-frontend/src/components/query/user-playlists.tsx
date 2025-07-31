@@ -1,3 +1,5 @@
+'use client'
+
 import {
     Dialog,
     DialogContent,
@@ -7,27 +9,32 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import PlaylistTile from "@/components/query/playlist-tile";
-import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
 import {Button} from "@/components/ui/button";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useSession} from "next-auth/react";
 import {Session} from "@/models/Session";
 import {toast} from "sonner";
+import {SoundCloudPlaylist} from "@/models/playlist/SoundCloudPlaylist";
+import {SpotifyPlaylist} from "@/models/playlist/SpotifyPlaylist";
+import {useAccessToken} from "@/hooks/useAccessToken";
+import {useService} from "@/hooks/useService";
+import {Playlist} from "@/models/playlist/Playlist";
+import {Artist} from "@/models/artist/Artist";
+import {Track} from "@/models/track/Track";
 
-export default function UserPlaylists({service, setSelectedPlaylist}: {
-    service: "soundcloud" | "spotify",
-    setSelectedPlaylist: Dispatch<SetStateAction<SpotifyPlaylist | SoundCloudPlaylist | null>>
+export default function UserPlaylists({setSelectedPlaylistAction}: {
+    setSelectedPlaylistAction: Dispatch<SetStateAction<Playlist<Track<Artist>> | null>>
 }) {
-    const [userPlaylists, setUserPlaylists] = useState<SpotifyPlaylist[] | SoundCloudPlaylist[] | null>(null);
+    const [userPlaylists, setUserPlaylists] = useState<Playlist<Track<Artist>>[] | null>(null);
     const [hasPrevious, setHasPrevious] = useState<boolean>(false);
     const [hasNext, setHasNext] = useState<boolean>(false);
     const [offset, setOffset] = useState<number>(0);
 
+
+    const service = useService();
     const limit = 5;
 
-    const {data: sessionData} = useSession();
-    const session = sessionData as Session;
-    const accessToken = session?.token.access_token;
+    const accessToken = useAccessToken();
 
     useEffect(() => {
         fetchUserPlaylists();
@@ -84,10 +91,9 @@ export default function UserPlaylists({service, setSelectedPlaylist}: {
                 {
                     userPlaylists ? userPlaylists.map((playlist) =>
                             <PlaylistTile
-                                key={service === "spotify" ? (playlist as SpotifyPlaylist).spotifyId : (playlist as SoundCloudPlaylist).urn}
+                                key={playlist.key}
                                 playlist={playlist}
-                                service={service}
-                                setSelectedPlaylist={setSelectedPlaylist}
+                                setSelectedPlaylistAction={setSelectedPlaylistAction}
                             />
                         )
                         : "Loading..."

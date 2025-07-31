@@ -2,10 +2,8 @@ package net.ssingh.spotifyservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Playlist;
 
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 public class SpotifyPlaylist extends Playlist<SpotifyTrack> {
 
     @JsonAlias({"id", "spotifyId"})

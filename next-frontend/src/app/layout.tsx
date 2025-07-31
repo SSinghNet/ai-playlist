@@ -6,6 +6,8 @@ import AuthProvider from "@/components/util/auth-provider";
 
 import {Inter} from "next/font/google";
 import {Analytics} from "@vercel/analytics/next"
+import ServiceRedirect from "@/lib/service-redirect";
+import {Toaster} from "sonner";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -13,9 +15,8 @@ const inter = Inter({
 });
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
-
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" className={"min-h-full"} suppressHydrationWarning>
         <head>
             <title>SSingh.Net AI Playlist Generator</title>
             <script
@@ -24,20 +25,22 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
                 crossOrigin="anonymous"
             ></script>
         </head>
-        <body className={inter.className + " overflow-hidden"}>
+        <body className={inter.className}>
         <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
         >
             <Analytics/>
             <AuthProvider>
-                {children}
+                <ServiceRedirect>
+                    <Toaster position={"top-center"} richColors/>
+                    {children}
+                </ServiceRedirect>
             </AuthProvider>
         </ThemeProvider>
         </body>
-        {/*<GoogleAdsense />*/}
         </html>
     );
 }

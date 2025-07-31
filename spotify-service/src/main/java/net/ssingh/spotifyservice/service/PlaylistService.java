@@ -40,10 +40,11 @@ public class PlaylistService {
     public ResponseEntity<SpotifyPlaylist> generatePlaylist(GeneratePlaylistRequest request) {
         try {
             Playlist<Track<Artist>> playlist = llmClient.generatePlaylist(request).getBody();
-            SpotifyPlaylist spotifyPlaylist = new SpotifyPlaylist();
             assert playlist != null;
-            spotifyPlaylist.setTitle(playlist.getTitle());
-            spotifyPlaylist.setDescription(playlist.getDescription());
+            SpotifyPlaylist spotifyPlaylist = SpotifyPlaylist.builder()
+                    .title(playlist.getTitle())
+                    .description(playlist.getDescription())
+                    .build();
 
             int count = 1;
 
@@ -121,11 +122,12 @@ public class PlaylistService {
                     accessToken
             );
 
-            SpotifyPlaylist playlist = new SpotifyPlaylist();
-            playlist.setSpotifyId(response.getId());
-            playlist.setTitle(response.getName());
-            playlist.setDescription(response.getDescription());
-            response.getTracks().getItems().forEach(item ->
+            SpotifyPlaylist playlist = SpotifyPlaylist.builder()
+                    .spotifyId(response.getId())
+                    .title(response.getName())
+                    .description(response.getDescription())
+                    .build();
+            response.getTracks().getItems().stream().limit(20).forEach(item ->
                     playlist.addTrack(trackService.getTrackById(item.getTrack().getSpotifyId()))
             );
 

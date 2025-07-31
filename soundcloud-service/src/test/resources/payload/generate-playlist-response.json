@@ -1,0 +1,114 @@
+{
+    "title": "Rhyme & Rhythm: Hip Hop Essentials",
+    "description": "A dynamic collection of foundational and popular hip hop tracks that showcase the genre's enduring energy and lyrical prowess.",
+    "tracks": [
+        {
+            "artists": [
+                {
+                    "name": "2Pac"
+                },
+                {
+                    "name": "Dr. Dre"
+                }
+            ],
+            "name": "California Love"
+        },
+        {
+            "artists": [
+                {
+                    "name": "Eminem"
+                }
+            ],
+            "name": "Lose Yourself"
+        },
+        {
+            "artists": [
+                {
+                    "name": "Nas"
+                }
+            ],
+            "name": "N.Y. State of Mind"
+        },
+        {
+            "artists": [
+                {
+                    "name": "Dr. Dre"
+                },
+                {
+                    "name": "Snoop Dogg"
+                }
+            ],
+            "name": "Still D.R.E."
+        },
+        {
+            "artists": [
+                {
+                    "name": "Mobb Deep"
+                }
+            ],
+            "name": "Shook Ones, Pt. II"
+        },
+        {
+            "artists": [
+                {
+                    "name": "Wu-Tang Clan"
+                }
+            ],
+            "name": "C.R.E.A.M. (Cash Rules Everything Around Me)"
+        },
+        {
+            "artists": [
+                {
+                    "name": "The Notorious B.I.G."
+                }
+            ],
+            "name": "Hypnotize"
+        },
+        {
+            "artists": [
+                {
+                    "name": "50 Cent"
+                }
+            ],
+            "name": "In Da Club"
+        },
+        {
+            "artists": [
+                {
+                    "name": "OutKast"
+                }
+            ],
+            "name": "Ms. Jackson"
+        },
+        {
+            "artists": [
+                {
+                    "name": "Kanye West"
+                }
+            ],
+            "name": "Jesus Walks"
+        },
+        {
+            "artists": [
+                {
+                    "name": "Kendrick Lamar"
+                }
+            ],
+            "name": "Alright"
+        },
+        {
+            "artists": [
+                {
+                    "name": "The Notorious B.I.G."
+                },
+                {
+                    "name": "Puff Daddy"
+                },
+                {
+                    "name": "Mase"
+                }
+            ],
+            "name": "Mo Money Mo Problems"
+        }
+    ]
+}

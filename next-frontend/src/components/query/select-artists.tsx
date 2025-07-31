@@ -9,21 +9,21 @@ import {
     DialogDescription,
     DialogHeader
 } from "@/components/ui/dialog";
-import {Artist, SpotifyArtist} from "@/models/Artist";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {random} from "nanoid";
 import {toast} from "sonner";
-import ArtistChip from "@/components/playlist/artist-chip";
+import ArtistChip from "@/components/new/artist-chip";
+import {SpotifyArtist} from "@/models/artist/SpotifyArtist";
+import {Artist} from "@/models/artist/Artist";
+import {useAccessToken} from "@/hooks/useAccessToken";
+import {useService} from "@/hooks/useService";
 
-export default function SelectArtists({service, artists, setArtists}: {
-    service: "spotify" | "soundcloud",
+export default function SelectArtists({artists, setArtists}: {
     artists: Artist[],
     setArtists: Dispatch<SetStateAction<Artist[]>>
 }) {
-    const {data: sessionData} = useSession();
-    const session = sessionData as Session;
-    const accessToken = session?.token.access_token;
+    const service = useService();
+    const accessToken = useAccessToken();
 
     const [artist, setArtist] = useState<string>("");
 
@@ -37,7 +37,7 @@ export default function SelectArtists({service, artists, setArtists}: {
         setArtists(artists => artists.filter(b => b.name !== a.name));
     }
 
-    const [topArtists, setTopArtists] = useState<SpotifyArtist[]>([]);
+    const [topArtists, setTopArtists] = useState<Artist[]>([]);
     const limit = 20;
 
     const fetchTopArtists = async () => {
@@ -86,7 +86,7 @@ export default function SelectArtists({service, artists, setArtists}: {
                     </DialogDescription>
                     Artists:
                     {artists.length > 0 && artists.map((artist: Artist) =>
-                        <div key={artist.name + random(10)} className={"flex justify-between"}>
+                        <div key={artist.key + artist.name} className={"flex justify-between"}>
                             <span>{artist.name}</span>
                             <Button variant={"outline"} onClick={() => removeArtist(artist)}>-</Button>
                         </div>
@@ -101,13 +101,16 @@ export default function SelectArtists({service, artists, setArtists}: {
                             Top Artists:
                             <div className={"grid grid-cols-3 gap-4"}>
                                 {topArtists.length == 0 && "Loading..."}
-                                {topArtists.map((artist: SpotifyArtist) =>
-                                    <div key={artist.uri + random(10)}
+                                {topArtists.map((artist: Artist) =>
+                                    <div key={artist.key + artist.name}
                                          className={"flex flex-row justify-between"}
                                     >
-                                        <ArtistChip artist={artist} service={service}/>
+                                        <ArtistChip
+
+                                            artist={artist}
+                                        />
                                         <Button
-                                            key={artist.uri}
+                                            key={artist.key + artist.name}
                                             size={"sm"}
                                             variant={"outline"}
                                             onClick={() => {

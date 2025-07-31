@@ -1,0 +1,21 @@
+import ModeToggle from "@/components/util/mode-toggle";
+import Main from "@/components/main";
+import {Toaster} from "sonner";
+
+export default function Home() {
+    return (
+        <div>
+            <Toaster position={"top-center"} richColors/>
+            <Main />
+            <ModeToggle/>
+        </div>
+    );
+}
+
+
+{/*service === "spotify" ?
+    <CardFooter className={"absolute bottom-2 right-[-10] font-extralight text-[0.7em]"}>
+        Metadata provided by&nbsp;<SpotifyLogoFull className={"w-12"} inverted={true}/>
+    </CardFooter>
+    : ""
+*/}

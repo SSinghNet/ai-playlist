@@ -28,12 +28,12 @@ public class SpotifyPlaylistList {
 
     @JsonProperty("items")
     public void unpackItems(List<Map<String, Object>> items) {
-
         for (Map<String, Object> item : items) {
-            SpotifyPlaylist playlist = new SpotifyPlaylist();
-            playlist.setSpotifyId((String) item.get("id"));
-            playlist.setTitle((String) item.get("name"));
-            playlist.setDescription((String) item.get("description"));
+            SpotifyPlaylist playlist = SpotifyPlaylist.builder()
+                    .spotifyId((String) item.get("id"))
+                    .title((String) item.get("name"))
+                    .description((String) item.get("description"))
+                    .build();
             getPlaylists().add(playlist);
         }
     }

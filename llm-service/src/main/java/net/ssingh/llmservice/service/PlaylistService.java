@@ -50,7 +50,7 @@ public class PlaylistService {
         Double requestTemp = request.getTemperature();
         double temperature = 0.7;
         if (requestTemp != null) {
-            if (requestTemp > 1 || requestTemp < 0) {
+            if (requestTemp > 2 || requestTemp < 0) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             temperature = requestTemp;

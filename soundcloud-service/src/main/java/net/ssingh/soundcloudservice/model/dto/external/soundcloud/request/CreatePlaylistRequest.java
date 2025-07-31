@@ -1,9 +1,6 @@
 package net.ssingh.soundcloudservice.model.dto.external.soundcloud.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CreatePlaylistRequest implements Serializable {
     private String title;
     private String description;

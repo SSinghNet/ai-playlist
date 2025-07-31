@@ -35,10 +35,11 @@ public class PlaylistService {
     public ResponseEntity<SoundCloudPlaylist> generatePlaylist(GeneratePlaylistRequest request) {
         try {
             Playlist<Track<Artist>> playlist = llmClient.generatePlaylist(request).getBody();
-            SoundCloudPlaylist scPlaylist = new SoundCloudPlaylist();
             assert playlist != null;
-            scPlaylist.setTitle(playlist.getTitle());
-            scPlaylist.setDescription(playlist.getDescription());
+            SoundCloudPlaylist scPlaylist = SoundCloudPlaylist.builder()
+                    .title(playlist.getTitle())
+                    .description(playlist.getDescription())
+                    .build();
 
             int count = 1;
 
@@ -85,9 +86,10 @@ public class PlaylistService {
 
     public ResponseEntity<SoundCloudPlaylist> createPlaylistForUser(SoundCloudPlaylist playlist, String accessToken) {
         try {
-            CreatePlaylistRequest body = new CreatePlaylistRequest();
-            body.setTitle(playlist.getTitle());
-            body.setDescription(playlist.getDescription());
+            CreatePlaylistRequest body = CreatePlaylistRequest.builder()
+                    .title(playlist.getTitle())
+                    .description(playlist.getDescription())
+                    .build();
             body.addTracks(playlist.getTrackUrns());
 
             String response = soundCloudApiClient.post("/playlists", body, String.class, accessToken);

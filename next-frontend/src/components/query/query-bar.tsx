@@ -5,28 +5,31 @@ import {useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Slider} from "@/components/ui/slider";
 import UserPlaylists from "@/components/query/user-playlists";
-import {SoundCloudPlaylist, SpotifyPlaylist} from "@/models/Playlist";
-import {Track} from "@/models/Track";
+import {Track} from "@/models/track/Track";
 import SelectTracks from "@/components/query/select-tracks";
-import {Artist} from "@/models/Artist";
+import {Artist} from "@/models/artist/Artist";
 import SelectArtists from "@/components/query/select-artists";
+import {useService} from "@/hooks/useService";
+import {ServiceMapLabel} from "@/models/ServiceMap";
+import {Playlist} from "@/models/playlist/Playlist";
 
 type QueryBarProps = {
-    fetchPlaylistAction: (query: string, playlistLength: number, temperature: number, nicheSlider: number, selectedPlaylist: SpotifyPlaylist | SoundCloudPlaylist | null, selectedTracks: Track<Artist>[], selectedArtists: Artist[]) => Promise<void>;
+    fetchPlaylistAction: (query: string, playlistLength: number, temperature: number, nicheSlider: number, selectedPlaylist: Playlist<Track<Artist>> | null, selectedTracks: Track<Artist>[], selectedArtists: Artist[]) => Promise<void>;
     isLoading: boolean;
-    service: "soundcloud" | "spotify";
 };
 
-export default function QueryBar({fetchPlaylistAction, isLoading, service}: QueryBarProps) {
+export default function QueryBar({fetchPlaylistAction, isLoading}: QueryBarProps) {
 
     const [query, setQuery] = useState<string>("");
     const [playlistLength, setPlaylistLength] = useState<number>(10);
     const [creativity, setCreativity] = useState<number>(1);
     const [popularity, setPopularity] = useState<number>(0.5);
 
-    const [selectedPlaylist, setSelectedPlaylist] = useState<SpotifyPlaylist | SoundCloudPlaylist | null>(null);
+    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist<Track<Artist>> | null>(null);
     const [selectedTracks, setSelectedTracks] = useState<Track<Artist>[]>([]);
     const [selectedArtists, setSelectedArtists] = useState<Artist[]>([]);
+
+    const service = useService();
 
     return (
         <form
@@ -108,14 +111,17 @@ export default function QueryBar({fetchPlaylistAction, isLoading, service}: Quer
                                 X
                             </Button>
                         </div>
-                        : <UserPlaylists service={service} setSelectedPlaylist={setSelectedPlaylist}/>}
+                        : <UserPlaylists setSelectedPlaylistAction={setSelectedPlaylist}/>}
                 </div>
                 <div className={"col-span-12 md:col-span-4 w-full items-center"}>
-                    <SelectTracks service={service} tracks={selectedTracks} setTracks={setSelectedTracks}/>
+                    <SelectTracks tracks={selectedTracks} setTracks={setSelectedTracks}/>
                 </div>
 
                 <div className={"col-span-12 md:col-span-4 w-full items-center"}>
-                    <SelectArtists service={service} artists={selectedArtists} setArtists={setSelectedArtists}/>
+                    <SelectArtists
+                        artists={selectedArtists}
+                        setArtists={setSelectedArtists}
+                    />
                 </div>
 
                 <Button
@@ -125,7 +131,7 @@ export default function QueryBar({fetchPlaylistAction, isLoading, service}: Quer
                     type="submit"
                     className={"col-span-12 text-center leading-snug break-words whitespace-normal h-auto text-xl font-medium"}
                 >
-                    Generate {service == "spotify" ? "Spotify" : "SoundCloud"} Playlist
+                    Generate {ServiceMapLabel[service!]} Playlist
                 </Button>
             </div>
         </form>

@@ -9,22 +9,23 @@ import {
     DialogDescription,
     DialogHeader
 } from "@/components/ui/dialog";
-import {SpotifyTrack, Track} from "@/models/Track";
-import {Artist} from "@/models/Artist";
+import {Track} from "@/models/track/Track";
+import {Artist} from "@/models/artist/Artist";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {random} from "nanoid";
 import {toast} from "sonner";
-import TrackTile from "@/components/query/track-tile";
+import TrackTile from "@/components/new/track-tile";
+import {SpotifyTrack} from "@/models/track/SpotifyTrack";
+import {useService} from "@/hooks/useService";
+import {useAccessToken} from "@/hooks/useAccessToken";
 
-export default function SelectTracks({service, tracks, setTracks}: {
-    service: "spotify" | "soundcloud",
+export default function SelectTracks({tracks, setTracks}: {
     tracks: Track<Artist>[],
     setTracks: Dispatch<SetStateAction<Track<Artist>[]>>
 }) {
-    const {data: sessionData} = useSession();
-    const session = sessionData as Session;
-    const accessToken = session?.token.access_token;
+
+    const service = useService();
+    const accessToken = useAccessToken();
 
     const [name, setName] = useState<string>("");
     const [artist, setArtist] = useState<string>("");
@@ -40,7 +41,7 @@ export default function SelectTracks({service, tracks, setTracks}: {
         setTracks(tracks.filter(track => track.name !== t.name && track.artists[0].name !== t.artists[0].name));
     };
 
-    const [topTracks, setTopTracks] = useState<SpotifyTrack[]>([]);
+    const [topTracks, setTopTracks] = useState<Track<Artist>[]>([]);
     const limit = 20;
 
     const fetchTopTracks = async () => {
@@ -73,6 +74,7 @@ export default function SelectTracks({service, tracks, setTracks}: {
         }
     };
 
+
     return (
         <Dialog>
             <DialogTrigger
@@ -89,7 +91,7 @@ export default function SelectTracks({service, tracks, setTracks}: {
                     </DialogDescription>
                     Tracks:
                     {tracks.length > 0 && tracks.map((track: Track<Artist>) =>
-                        <div key={track.name + random(10)} className={"flex justify-between w-full"}>
+                        <div key={track.name + track.key} className={"flex justify-between w-full"}>
                             <span>{track.name} - {track.artists[0].name}</span>
                             <Button variant={"outline"} onClick={() => removeTrack(track)}>-</Button>
                         </div>
@@ -106,17 +108,16 @@ export default function SelectTracks({service, tracks, setTracks}: {
                             Top Tracks:
                             <div className={"grid grid-cols-2 gap-4"}>
                                 {topTracks.length == 0 && "Loading..."}
-                                {topTracks.map((track: SpotifyTrack) =>
-                                    <div key={track.uri + random(10)}
+                                {topTracks.map((track: Track<Artist>) =>
+                                    <div key={track.key + track.name}
                                          className={"flex flex-row"}
                                     >
                                         <TrackTile
-                                            key={track.uri + random(10)}
+                                            key={track.key + track.name}
                                             track={track}
-                                            service={service}
                                         />
                                         <Button
-                                            key={track.uri}
+                                            key={track.key}
                                             variant={"outline"}
                                             className={"h-full aspect-square text-3xl m-0"}
                                             onClick={() => {

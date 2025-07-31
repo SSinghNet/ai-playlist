@@ -49,13 +49,13 @@ function Slider({
                 <SliderPrimitive.Track
                     data-slot="slider-track"
                     className={cn(
-                        "bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-3"
+                        "bg-accent-foreground relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-3"
                     )}
                 >
                     <SliderPrimitive.Range
                         data-slot="slider-range"
                         className={cn(
-                            "bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+                            "bg-muted absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
                         )}
                     />
                 </SliderPrimitive.Track>
@@ -63,16 +63,16 @@ function Slider({
                     <SliderPrimitive.Thumb
                         data-slot="slider-thumb"
                         key={index}
-                        className="border-foreground bg-background ring-ring/50 size-7 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-2 focus-visible:ring-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-20 flex items-center"
+                        className="border-accent-foreground/50 bg-background ring-ring/50 size-7 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-2 focus-visible:ring-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-20 flex items-center"
                     >
-                            <span className={"text-xs text-light m-auto flex items-center"}>
+                            <span className={"text-xs text-light m-auto flex items-center text-foreground"}>
                                 {thumbValue ? thumbValue : " "}
                             </span>
                     </SliderPrimitive.Thumb>
                 ))}
             </SliderPrimitive.Root>
             {(leftLabel && rightLabel) ?
-                <div className={"flex flex-row justify-between mt-2 text-xs text-light"}>
+                <div className={"flex flex-row justify-between mt-2 text-xs text-light opacity-75"}>
                     <span>{leftLabel}</span>
                     <span>{rightLabel}</span>
                 </div> : ""

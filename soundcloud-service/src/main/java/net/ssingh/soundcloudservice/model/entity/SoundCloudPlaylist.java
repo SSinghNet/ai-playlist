@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import net.ssingh.aiplaylist_common_files.model.entity.generic.Playlist;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class SoundCloudPlaylist extends Playlist<SoundCloudTrack> {
     String urn;
     @JsonAlias("permalink_url")
