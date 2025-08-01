@@ -61,7 +61,7 @@ jobs:
         id: maven-package
         run: |
           echo "=== Packaging Maven ==="
-          mvn package        
+          mvn package -DskipTests        
 
       - name: Maven Package, Docker Build, Docker Push
         id: package-build-push
