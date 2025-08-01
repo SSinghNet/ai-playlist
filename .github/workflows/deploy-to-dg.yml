@@ -23,4 +23,4 @@ jobs:
       - name: Pull and Deploy
         id: pull-and-deploy
         run: |
-            ssh root@45.55.102.43 '/root/pull-and-deploy.sh'
+            ssh -o StrictHostKeyChecking=no root@45.55.102.43 '/root/pull-and-deploy.sh'
