@@ -1,0 +1,92 @@
+# This workflow will build and push a new container image to Amazon ECR,
+# and then will deploy a new task definition to Amazon ECS, when there is a push to the "master" branch.
+#
+# To use this workflow, you will need to complete the following set-up steps:
+#
+# 1. Create an ECR repository to store your images.
+#    For example: `aws ecr create-repository --repository-name my-ecr-repo --region us-east-2`.
+#    Replace the value of the `ECR_REPOSITORY` environment variable in the workflow below with your repository's name.
+#    Replace the value of the `AWS_REGION` environment variable in the workflow below with your repository's region.
+#
+#
+# 4. Store an IAM user access key in GitHub Actions secrets named `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+#    See the documentation for each action used below for the recommended IAM policies for this IAM user,
+#    and best practices on handling the access key credentials.
+
+name: Package, Build, and Deploy to Amazon ECR
+
+on:
+  push:
+    branches: ["master"]
+
+env:
+  AWS_REGION: us-east-1
+  API_GATEWAY_ECR_REPOSITORY: ai-playlist/api-gateway
+  LLM_SERVICE_ECR_REPOSITORY: ai-playlist/llm-service
+  SERVICE_REGISTRY_ECR_REPOSITORY: ai-playlist/service-registry
+  SOUNDCLOUD_SERVICE_ECR_REPOSITORY: ai-playlist/soundcloud-service
+  SPOTIFY_SERVICE_ECR_REPOSITORY: ai-playlist/spotify-service
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Package common files
+        id: common-files-package
+        working-directory: ./aiplaylist_common_files
+        run: |
+          echo "=== Packaging Common Files ==="
+          ./mvnw package        
+
+      - name: Maven Package, Docker Build, Docker Push
+        id: package-build-push
+        run: |
+          services=(
+            api-gateway
+            llm-service
+            service-registry
+            spotify-service
+            soundcloud-service
+          )
+
+          for service in "${services[@]}"; do
+            echo "=== Building Maven Project: $service ==="
+            cd "$service"
+            ./mvnw package
+            cd ..
+
+            IMAGE_NAME="ai-playlist/${service}"
+            ECR_REPO="${{ secrets.ECR_ACCOUNT_ID }}.dkr.ecr.${AWS_REGION}.amazonaws.com/$IMAGE_NAME"
+
+            echo "=== Building Docker Image: $IMAGE_NAME ==="
+            docker build -t "$ECR_REPO:latest" "$service"
+
+            echo "=== Pushing to ECR: $ECR_REPO ==="
+            docker push "$ECR_REPO:latest"
+          done
