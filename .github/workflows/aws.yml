@@ -75,7 +75,6 @@ jobs:
             spotify-service
             soundcloud-service
           )
-
           account_id="${{ secrets.ECR_ACCOUNT_ID }}"
 
           for service in "${services[@]}"; do
