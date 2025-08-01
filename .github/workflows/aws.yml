@@ -76,7 +76,7 @@ jobs:
             soundcloud-service
           )
 
-          ACCOUNT_ID = "${{ secrets.ECR_ACCOUNT_ID }}"
+          account_id="${{ secrets.ECR_ACCOUNT_ID }}"
 
           for service in "${services[@]}"; do
             echo "=== Building Maven Project: $service ==="
@@ -86,7 +86,7 @@ jobs:
             cd ..
 
             IMAGE_NAME="ai-playlist/${service}"
-            ECR_REPO="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$IMAGE_NAME"
+            ECR_REPO="${account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com/$IMAGE_NAME"
 
             echo "=== Building Docker Image: $IMAGE_NAME ==="
             docker build -t "$ECR_REPO:latest" "$service"
