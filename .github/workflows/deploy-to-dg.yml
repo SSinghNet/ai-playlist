@@ -1,0 +1,26 @@
+name: Deploy on Digitalocean
+
+on:
+  workflow_run:
+    workflows: ["Package, Build, and Deploy to Amazon ECR"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Pull and Deploy
+        id: pull-and-deploy
+        run: |
+            ssh root@45.55.102.43 '/root/pull-and-deploy.sh'

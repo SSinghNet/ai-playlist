@@ -6,11 +6,6 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  API_GATEWAY_ECR_REPOSITORY: ai-playlist/api-gateway
-  LLM_SERVICE_ECR_REPOSITORY: ai-playlist/llm-service
-  SERVICE_REGISTRY_ECR_REPOSITORY: ai-playlist/service-registry
-  SOUNDCLOUD_SERVICE_ECR_REPOSITORY: ai-playlist/soundcloud-service
-  SPOTIFY_SERVICE_ECR_REPOSITORY: ai-playlist/spotify-service
 
 permissions:
   contents: read
