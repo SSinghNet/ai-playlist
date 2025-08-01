@@ -35,8 +35,8 @@ export default abstract class Profile {
                 }
                 const data = await response.json();
 
-                const hasNext = (data.hasNext!);
-                const hasPrevious = (data.hasPrevious!);
+                const hasNext = !!(data.hasNext!);
+                const hasPrevious = !!(data.hasPrevious!);
                 switch (service) {
                     case 'spotify':
                         const playlistsS = (data.playlists as SpotifyPlaylistJSON[]).map(
