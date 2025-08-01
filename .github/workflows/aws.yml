@@ -62,7 +62,7 @@ jobs:
         working-directory: ./aiplaylist_common_files
         run: |
           echo "=== Packaging Common Files ==="
-          chmod +x ./mnvw
+          chmod +x ./mvnw
           ./mvnw package        
 
       - name: Maven Package, Docker Build, Docker Push
@@ -79,7 +79,7 @@ jobs:
           for service in "${services[@]}"; do
             echo "=== Building Maven Project: $service ==="
             cd "$service"
-            chmod +x ./mnvw
+            chmod +x ./mvnw
             ./mvnw package
             cd ..
 
