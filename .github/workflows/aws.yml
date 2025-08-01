@@ -57,13 +57,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Package common files
-        id: common-files-package
-        working-directory: ./aiplaylist_common_files
+      - name: Package Maven
+        id: maven-package
         run: |
-          echo "=== Packaging Common Files ==="
-          chmod +x ./mvnw
-          ./mvnw package        
+          echo "=== Packaging Maven ==="
+          mvn package        
 
       - name: Maven Package, Docker Build, Docker Push
         id: package-build-push
@@ -79,10 +77,6 @@ jobs:
 
           for service in "${services[@]}"; do
             echo "=== Building Maven Project: $service ==="
-            cd "$service"
-            chmod +x ./mvnw
-            ./mvnw package
-            cd ..
 
             IMAGE_NAME="ai-playlist/${service}"
             ECR_REPO="${account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com/$IMAGE_NAME"
