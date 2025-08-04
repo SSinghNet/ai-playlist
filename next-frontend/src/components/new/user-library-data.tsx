@@ -55,12 +55,16 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
                 toast.error((err as Error).message);
             }
             try {
-                setTracks(await profile.fetchTopTracks(accessToken, limit, trackTerm));
+                if (service !== "soundcloud") {
+                    setTracks(await profile.fetchTopTracks(accessToken, limit, trackTerm));
+                }
             } catch (err) {
                 toast.error((err as Error).message);
             }
             try {
-                setArtists(await profile.fetchTopArtists(accessToken, limit, artistTerm));
+                if (service !== "soundcloud") {
+                    setArtists(await profile.fetchTopArtists(accessToken, limit, artistTerm));
+                }
             } catch (err) {
                 toast.error((err as Error).message);
             }
@@ -93,6 +97,7 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
     useEffect(() => {
         try {
             if (!accessToken) return;
+            if (service === "soundcloud") return;
             const set = async () => {
                 setTracks(null);
                 try {
@@ -111,6 +116,7 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
     useEffect(() => {
         try {
             if (!accessToken) return;
+            if (service === "soundcloud") return;
             const set = async () => {
                 setArtists(null);
                 try {

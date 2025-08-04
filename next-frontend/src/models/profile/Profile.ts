@@ -45,7 +45,7 @@ export default abstract class Profile {
                         return {playlists: playlistsS, hasNext: hasNext, hasPrev: hasPrevious};
 
                     case 'soundcloud':
-                        const playlistsSC =  (data.playlists as SoundCloudPlaylistJSON[]).map(
+                        const playlistsSC = (data as SoundCloudPlaylistJSON[]).map(
                             (p) => SoundCloudPlaylist.fromJSON(p)
                         ) as ServiceMapPlaylist[typeof service][];
                         return {playlists: playlistsSC, hasNext: hasNext, hasPrev: hasPrevious};
