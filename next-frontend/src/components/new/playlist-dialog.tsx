@@ -70,7 +70,7 @@ export default function PlaylistDialog({setPlaylistAction, playlist}: {
                 </DialogHeader>
                 <div className="flex flex-col items-center gap-3 justify-center">
                     <div className={"flex flex-col items-center gap-2"}>
-                        {accessToken && service ?
+                        {(accessToken && service) ?
                             <Button
                                 onClick={exportPlaylist}
                                 variant={"secondary"}
@@ -78,9 +78,7 @@ export default function PlaylistDialog({setPlaylistAction, playlist}: {
                                 className={"flex items-center"}
                             >
                                 Export Playlist to {ServiceMapLabel[service]}
-                            </Button> :
-                            <pre
-                                className={"text-sm"}>*Sign in with {ServiceMapLabel[service!]} to export your playlist*</pre>
+                            </Button> : null
                         }
                         {playlist.key && playlist.url ?
                             <>

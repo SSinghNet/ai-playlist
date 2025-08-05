@@ -6,13 +6,19 @@ import SpotifyLogoFull from "@/components/spotify-logo-full";
 import {useEffect} from "react";
 import {useService} from "@/hooks/useService";
 import {useAccessToken} from "@/hooks/useAccessToken";
+import {useDemoMode} from "@/context/DemoModeContext";
+import {useRouter} from "next/navigation";
 
 
 export default function LoginWithProviders() {
     const accessToken = useAccessToken();
     const service = useService();
+    const router = useRouter();
+
+    const {setDemoMode} = useDemoMode();
 
     const fetchProfile = async () => {
+        if (service === "demo") return null;
         if (accessToken) {
             return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${service}/profile/playlists?accessToken=${accessToken}&limit=1&offset=0`, {
                 method: "get",
@@ -27,6 +33,7 @@ export default function LoginWithProviders() {
     }
 
     useEffect(() => {
+        if (service === "demo") return;
         if (service) {
             fetchProfile().then(async (res) => {
                 if (res!.status !== 200) {
@@ -41,19 +48,30 @@ export default function LoginWithProviders() {
 
     return (
         <div className={"flex gap-2 flex-row justify-center md:justify-end"}>
-            {service ?
-                <Button
-                    onClick={() => signOut()}
-                    className={`object-right ${border}`}
-                    variant={"outline"}
-                    size={"sm"}
-                >
-                    Sign Out of {
-                    service === "soundcloud" ?
-                        "SoundCloud"
-                        : <SpotifyLogoFull className={"w-15"} inverted={true}/>}
-                </Button> :
-                <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
+            {service ? (service === "demo")
+                    ? <Button
+                        onClick={() => setDemoMode(false)}
+                        className={`object-right border-white dark:border-white shadow-white shadow-sm`}
+                        variant={"outline"}
+                        size={"sm"}
+                    >
+                        Leave Guest Mode
+                    </Button>
+                    :
+                    <Button
+                        onClick={() => signOut()}
+                        className={`object-right ${border}`}
+                        variant={"outline"}
+                        size={"sm"}
+                    >
+                        Log Out of
+                        {service === "soundcloud" ? (
+                            "SoundCloud"
+                        ) : (
+                            <SpotifyLogoFull className="w-15" inverted/>
+                        )}
+                    </Button> :
+                <div className={"grid grid-cols-1 md:grid-cols-3 gap-2"}>
                     <Button
                         onClick={() => signIn("spotify")}
                         className={"flex border-[#1ed760] dark:border-[#1ed760] shadow-[#1ed760] shadow-sm col-span-1"}
@@ -69,6 +87,18 @@ export default function LoginWithProviders() {
                         size={"sm"}
                     >
                         Sign In With SoundCloud
+                    </Button>
+
+                    <Button
+                        onClick={() => {
+                            setDemoMode(true);
+                            router.replace("/app");
+                        }}
+                        className={"flex border-white dark:border-white shadow-white shadow-sm col-span-1"}
+                        variant={"outline"}
+                        size={"sm"}
+                    >
+                        Sign In As Guest
                     </Button>
                 </div>
             }

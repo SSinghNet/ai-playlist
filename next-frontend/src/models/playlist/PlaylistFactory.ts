@@ -15,7 +15,12 @@ export class PlaylistFactory {
             throw new Error("Playlist length must be between 5 and 25.");
         }
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${service}/playlist/generate`, {
+            let serviceName = service;
+            if (service === "demo"){
+                serviceName = "spotify";
+            }
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${serviceName}/playlist/generate`, {
                 method: "POST",
                 body: GeneratePlaylistBodyString(req),
                 headers: {
@@ -27,13 +32,15 @@ export class PlaylistFactory {
                 throw new Error("Error while fetching playlist. Try again later.");
             }
 
+
             const data = await res.json();
-            localStorage.setItem(`playlist-${service}`, JSON.stringify(data));
+            localStorage.setItem(`playlist-${serviceName}`, JSON.stringify(data));
             switch (service) {
+                case "demo":
                 case 'spotify':
-                    return SpotifyPlaylist.fromJSON(data) as ServiceMapPlaylist[typeof service];
+                    return SpotifyPlaylist.fromJSON(data) as SpotifyPlaylist;
                 case 'soundcloud':
-                    return SoundCloudPlaylist.fromJSON(data) as ServiceMapPlaylist[typeof service];
+                    return SoundCloudPlaylist.fromJSON(data) as SoundCloudPlaylist;
                 default:
                     throw new Error("Something went wrong.")
             }

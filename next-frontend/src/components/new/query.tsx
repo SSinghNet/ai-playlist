@@ -352,7 +352,7 @@ export default function Query({setPlaylistAction, setLoadingAction, loading}: Qu
                 </Button>
 
             </div>
-            {service &&
+            {service && service !== "demo" &&
                 <UserLibraryData
                     addSelectedTrack={addSelectedTrack}
                     addSelectedArtist={addSelectedArtist}
