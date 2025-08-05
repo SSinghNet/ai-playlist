@@ -1,5 +1,5 @@
 import GeneratePlaylistRequest, {GeneratePlaylistBodyString} from "@/models/playlist/GeneratePlaylistRequest";
-import {ServiceMapPlaylist, ServiceType} from "@/models/ServiceMap";
+import {ServiceType} from "@/models/ServiceMap";
 import {SpotifyPlaylist} from "@/models/playlist/SpotifyPlaylist";
 import {SoundCloudPlaylist} from "@/models/playlist/SoundCloudPlaylist";
 import {Playlist} from "@/models/playlist/Playlist";

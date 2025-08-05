@@ -40,8 +40,8 @@ export default function UserLibraryData({addSelectedTrack, addSelectedArtist}: U
     const [artistTerm, setArtistTerm] = useState<TimeRange>("SHORT_TERM");
 
     let profile: Profile;
-    if (service) {
-        profile = new ServiceMapProfile[service]();
+    if (service && service !== "demo") {
+        profile = new ServiceMapProfile[service]!();
     }
     useEffect(() => {
         if (!accessToken) return;

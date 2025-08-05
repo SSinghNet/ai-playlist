@@ -28,8 +28,8 @@ export default function PlaylistTile({playlist, addSelectedTrack}: {
     const accessToken = useAccessToken();
 
     let profile: Profile;
-    if (service) {
-        profile = new ServiceMapProfile[service]();
+    if (service && service !== "demo") {
+        profile = new ServiceMapProfile[service]!();
     }
 
     const [_playlist, setPlaylist] = useState(playlist);
