@@ -1,13 +1,13 @@
 'use client'
 
 import LoginWithProviders from "@/components/util/login-with-providers";
-import Query from "@/components/new/query";
+import Query from "@/components/prompt/query";
 import {Artist} from "@/models/artist/Artist";
 import {useState} from "react";
 import {Playlist} from "@/models/playlist/Playlist";
 import {Track} from "@/models/track/Track";
-import PlaylistDialog from "@/components/new/playlist-dialog";
-import PlaylistGenerating from "@/components/new/playlist-generating";
+import PlaylistDialog from "@/components/playlist/playlist-dialog";
+import PlaylistGenerating from "@/components/playlist/playlist-generating";
 
 export default function App() {
 

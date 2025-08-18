@@ -2,7 +2,7 @@
 
 import {signIn, signOut} from "next-auth/react";
 import {Button} from "@/components/ui/button";
-import SpotifyLogoFull from "@/components/spotify-logo-full";
+import SpotifyLogoFull from "@/components/icons/spotify-logo-full";
 import {useEffect} from "react";
 import {useService} from "@/hooks/useService";
 import {useAccessToken} from "@/hooks/useAccessToken";

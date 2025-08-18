@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {Card} from "@/components/ui/card";
-import ArtistChip from "@/components/new/artist-chip";
+import ArtistChip from "@/components/artist/artist-chip";
 import Link from "next/link";
 import {Artist} from "@/models/artist/Artist";
 import {Track} from "@/models/track/Track";

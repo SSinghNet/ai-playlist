@@ -1,4 +1,4 @@
-import TrackCard from "@/components/new/track-card";
+import TrackCard from "@/components/track/track-card";
 import {Button} from "@/components/ui/button";
 import {Dispatch, SetStateAction, useState} from "react";
 import Link from "next/link";
@@ -16,7 +16,7 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import MusicNoteIcon from "@/components/music-note-icon";
+import MusicNoteIcon from "@/components/icons/music-note-icon";
 import {toast} from "sonner";
 
 export default function PlaylistDialog({setPlaylistAction, playlist}: {

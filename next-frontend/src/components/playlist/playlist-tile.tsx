@@ -1,4 +1,4 @@
-import TrackCard from "@/components/new/track-card";
+import TrackCard from "@/components/track/track-card";
 import {Button} from "@/components/ui/button";
 import {Track} from "@/models/track/Track";
 import {Artist} from "@/models/artist/Artist";
@@ -11,7 +11,7 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import MusicNoteIcon from "@/components/music-note-icon";
+import MusicNoteIcon from "@/components/icons/music-note-icon";
 import Profile from "@/models/profile/Profile";
 import {ServiceMapProfile} from "@/models/ServiceMap";
 import {useService} from "@/hooks/useService";

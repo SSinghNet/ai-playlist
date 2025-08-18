@@ -2,7 +2,7 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Slider} from "@/components/ui/slider";
 import {Dispatch, SetStateAction, useState} from "react";
-import UserLibraryData from "@/components/new/user-library-data";
+import UserLibraryData from "@/components/prompt/user-library-data";
 import {Playlist} from "@/models/playlist/Playlist";
 import {Track} from "@/models/track/Track";
 import {Artist} from "@/models/artist/Artist";
@@ -11,8 +11,8 @@ import {useService} from "@/hooks/useService";
 import GenericArtist from "@/models/artist/GenericArtist";
 import GenericTrack from "@/models/track/GenericTrack";
 import {Badge} from "@/components/ui/badge";
-import AddTrackDialog from "@/components/new/add-track-dialog";
-import AddArtistDialog from "@/components/new/add-artist-dialog";
+import AddTrackDialog from "@/components/track/add-track-dialog";
+import AddArtistDialog from "@/components/artist/add-artist-dialog";
 import {toast} from "sonner";
 
 interface QueryProps {
